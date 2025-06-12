@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Eliminar Usuario</title>
+    <link rel="stylesheet" href="{% static 'Usuarios.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <header class="header-section header-danger">
+        <h1><i class="fa-solid fa-user-minus"></i> Eliminar Usuario</h1>
+        <p>Selecciona un usuario para eliminarlo permanentemente.</p>
+    </header>
+
+    <main class="main-container">
+        <div class="table-card">
+            <form method="POST" class="selection-form">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="usuario_id"><i class="fa-solid fa-user"></i> Selecciona un usuario:</label>
+                    <select name="usuario_id" class="user-select" required>
+                        <option value="" disabled selected>-- Selecciona --</option>
+                        {% for usuario in usuarios %}
+                            <option value="{{ usuario.id }}">{{ usuario.nombre }} (ID: {{ usuario.id }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-delete"><i class="fa-solid fa-trash"></i> Eliminar Usuario</button>
+                    <a href="#" class="btn-cancel"><i class="fa-solid fa-times"></i> Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+</body>
+</html>

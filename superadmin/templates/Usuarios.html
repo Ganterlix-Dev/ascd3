@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'Usuarios.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <div class="header-section">
+        <h1><i class="fas fa-users"></i>Gestión de Usuarios</h1>
+        <p>Aquí puedes crear, modificar y eliminar los usuarios que desees de manera fácil y rápida</p>
+        <a href="/home" style="text-decoration: none;" class="btn-create"><i class="fas fa-plus"></i> Crear Usuario</a>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Stats Section -->
+        <div class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">{{ usuarios|length }}</div>
+                    <div class="stat-label">Total Usuarios</div>
+                </div>
+                <div class="stat-card">
+                        <a href="/home" class="btn-edit">
+                            <div class="stat-number">
+                                <i style="color: white;" class="fas fa-edit"></i>
+                            </div>
+                        </a>
+                    <div class="stat-label">Modificar</div>
+                </div>
+                <div class="stat-card">
+                    <a href="/home" class="btn-delete">
+                    <div class="stat-number">
+                        <i style="color: white;" class="fas fa-trash"></i>
+                    </div>
+                    </a>
+                    <div class="stat-label">Eliminar</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Users Section -->
+        <div class="section-title">Lista de Usuarios</div>
+        
+        <div class="table-card">
+            <div class="table-header">
+                <h3><i class="fas fa-list"></i> Usuarios Registrados</h3><br>
+            </div>
+            
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Cédula</th>
+                        <th>Correo</th>
+                        <th>Teléfono</th>
+                        <th>Rol</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for usuario in usuarios %}
+                    <tr>
+                        <td>{{ usuario.nombre }}</td>
+                        <td>{{ usuario.apellido }}</td>
+                        <td>{{ usuario.cedula }}</td>
+                        <td>{{ usuario.correo }}</td>
+                        <td>{{ usuario.telefono }}</td>
+                        <td>{{ usuario.rol }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

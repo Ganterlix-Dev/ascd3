@@ -1,0 +1,171 @@
+
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+body {
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+background-color: #faf7ed;
+min-height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 20px;
+}
+
+.container {
+background: white;
+padding: 40px;
+border-radius: 20px;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+width: 100%;
+max-width: 400px;
+border: 2px solid #a7d477;
+}
+
+.header {
+text-align: center;
+margin-bottom: 30px;
+}
+
+.header h1 {
+color: #333;
+font-size: 28px;
+margin-bottom: 10px;
+}
+
+.header p {
+color: #666;
+font-size: 16px;
+}
+
+.form-group {
+margin-bottom: 20px;
+}
+
+.form-group label {
+display: block;
+margin-bottom: 8px;
+color: #333;
+font-weight: 500;
+}
+
+.form-group input {
+width: 100%;
+padding: 12px 16px;
+border: 2px solid #e0e0e0;
+border-radius: 10px;
+font-size: 16px;
+transition: all 0.3s ease;
+background-color: #faf7ed;
+}
+
+.form-group input:focus {
+outline: none;
+border-color: #a7d477;
+box-shadow: 0 0 0 3px rgba(167, 212, 119, 0.1);
+}
+
+.form-options {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 25px;
+font-size: 14px;
+}
+
+.remember-me {
+display: flex;
+align-items: center;
+gap: 8px;
+}
+
+.remember-me input[type="checkbox"] {
+width: auto;
+margin: 0;
+}
+
+.forgot-password {
+color: #fcb454;
+text-decoration: none;
+transition: color 0.3s ease;
+}
+
+.forgot-password:hover {
+color: #ffcf50;
+}
+
+.btn-login {
+width: 100%;
+padding: 14px;
+background: linear-gradient(135deg, #a7d477, #ffcf50);
+color: white;
+border: none;
+border-radius: 10px;
+font-size: 16px;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.3s ease;
+margin-bottom: 20px;
+}
+
+.btn-login:hover {
+background: linear-gradient(135deg, #95c265, #fcb454);
+transform: translateY(-2px);
+box-shadow: 0 5px 15px rgba(167, 212, 119, 0.3);
+}
+
+.divider {
+text-align: center;
+margin: 25px 0;
+position: relative;
+color: #666;
+}
+
+.divider::before {
+content: '';
+position: absolute;
+top: 50%;
+left: 0;
+right: 0;
+height: 1px;
+background: #e0e0e0;
+z-index: 1;
+}
+
+.divider span {
+background: white;
+padding: 0 15px;
+position: relative;
+z-index: 2;
+}
+
+.register-link {
+text-align: center;
+color: #666;
+}
+
+.register-link a {
+color: #fcb454;
+text-decoration: none;
+font-weight: 600;
+transition: color 0.3s ease;
+}
+
+.register-link a:hover {
+color: #ffcf50;
+}
+
+@media (max-width: 480px) {
+.container {
+    padding: 30px 20px;
+}
+
+.form-options {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+}
+}

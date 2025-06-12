@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'Usuarios.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Producto</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header class="header-section">
+        <h1>Editar Producto</h1>
+        <p>Selecciona un producto y edita su información</p>
+    </header>
+
+    <main class="main-container">
+        <div class="table-card">
+            <div class="table-header">
+                <h3>Seleccionar Producto</h3>
+            </div>
+            <form method="POST" class="stats-section">
+                {% csrf_token %}
+                <label for="producto_id">Selecciona un producto:</label>
+                <select name="producto_id" onchange="this.form.submit()" class="user-table">
+                    <option value="" disabled selected>-- Selecciona --</option>
+                    {% for producto in producto %}
+                        <option value="{{ producto.id }}" {% if producto_seleccionado and producto_seleccionado.id == producto.id %}selected{% endif %}>
+                            {{ producto.nombre }} (ID: {{ producto.id }})
+                        </option>
+                    {% endfor %}
+                </select>
+            </form>
+        </div>
+
+        {% if producto_seleccionado %}
+        <div class="table-card">
+            <div class="table-header">
+                <h3>Editar Información</h3>
+            </div>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="producto_id" value="{{ producto_seleccionado.id }}">
+                {{ form.as_p }}
+                <div class="action-cell">
+                    <button type="submit" name="guardar_cambios" class="btn-edit">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+    </main>
+
+</body>
+</html>

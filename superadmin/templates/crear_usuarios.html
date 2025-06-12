@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+    <link rel="stylesheet" href="{% static 'Usuarios.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <title>Crear Usuario</title>
+</head>
+<body>
+
+    <header class="header-section">
+        <h1><i class="fa-solid fa-user-plus"></i> Crear Usuario</h1>
+        <p>Completa el formulario para registrar un nuevo usuario.</p>
+    </header>
+
+    <main class="main-container">
+        <div class="form-container">
+            <div class="table-card">
+                <div class="table-header">
+                    <h3>
+                        <i class="fas fa-plus-circle"></i> Información del Usuario
+                    </h3>
+                </div>
+                
+                {% csrf_token %}
+                <form method="POST">
+                <div class="user-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="nombre">
+                                <i class="fas fa-user"></i> Nombre:
+                            </label>
+                            <input type="text" name="nombre" id="nombre" placeholder="Ingresa el nombre" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="apellido">
+                                <i class="fas fa-user"></i> Apellido:
+                            </label>
+                            <input type="text" name="apellido" id="apellido" placeholder="Ingresa el apellido" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cedula">
+                                <i class="fas fa-id-card"></i> Cédula:
+                            </label>
+                            <input type="text" name="cedula" id="cedula" placeholder="Ingresa la cédula" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="correo">
+                                <i class="fas fa-envelope"></i> Correo:
+                            </label>
+                            <input type="email" name="correo" id="correo" placeholder="Ingresa el correo electrónico" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="telefono">
+                                <i class="fas fa-phone"></i> Teléfono:
+                            </label>
+                            <input type="tel" name="telefono" id="telefono" placeholder="Ingresa el teléfono" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="rol">
+                                <i class="fas fa-user-tag"></i> Rol:
+                            </label>
+                            <select name="rol" id="rol" required>
+                                <option value="" disabled selected>-- Selecciona un rol --</option>
+                                <option value="Admin">Administrador</option>
+                                <option value="Usuario">Usuario</option>
+                                <option value="Supervisor">Supervisor</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-submit">
+                            <i class="fas fa-save"></i> Crear Usuario
+                        </button>
+                        <a href="#" class="btn-cancel">
+                            <i class="fas fa-arrow-left"></i> Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </main>
+
+</body>
+</html>

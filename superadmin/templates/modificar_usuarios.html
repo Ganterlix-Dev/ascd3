@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'Usuarios.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Usuario</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header class="header-section">
+        <h1>Editar Usuario</h1>
+        <p>Selecciona un usuario y edita su información</p>
+    </header>
+
+    <main class="main-container">
+        <div class="table-card">
+            <div class="table-header">
+                <h3>Seleccionar Usuario</h3>
+            </div>
+            <form method="POST" class="stats-section">
+                {% csrf_token %}
+                <label for="usuario_id">Selecciona un usuario:</label>
+                <select name="usuario_id" onchange="this.form.submit()" class="user-table">
+                    <option value="" disabled selected>-- Selecciona --</option>
+                    {% for usuario in usuarios %}
+                        <option value="{{ usuario.id }}" {% if usuario_seleccionado and usuario_seleccionado.id == usuario.id %}selected{% endif %}>
+                            {{ usuario.nombre }} (ID: {{ usuario.id }})
+                        </option>
+                    {% endfor %}
+                </select>
+            </form>
+        </div>
+
+        {% if usuario_seleccionado %}
+        <div class="table-card">
+            <div class="table-header">
+                <h3>Editar Información</h3>
+            </div>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="usuario_id" value="{{ usuario_seleccionado.id }}">
+                {{ form.as_p }}
+                <div class="action-cell">
+                    <button type="submit" name="guardar_cambios" class="btn-edit">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+    </main>
+
+</body>
+</html>

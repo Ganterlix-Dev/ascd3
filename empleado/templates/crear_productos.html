@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Producto</title>
+</head>
+<body>
+    <h1>Crear Producto</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label for="imagen">Imagen del producto:</label>
+        <input type="file" id="imagen" name="imagen" accept="image/*" required>
+        <p>Sube una imagen representativa del producto.</p>
+
+        <label for="nombre">Nombre del producto:</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Ingresa el nombre del producto" required>
+
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" name="descripcion" placeholder="Describe el producto" required></textarea>
+
+        <label for="categoria">Categoría:</label>
+        <select id="categoria" name="categoria" required>
+            <option value="" disabled selected>Selecciona una categoría</option>
+            <option value="Herramientas">Herramientas</option>
+            <option value="Materiales de Construcción">Materiales de Construcción</option>
+            <option value="Pinturas">Pinturas</option>
+            <option value="Electricidad">Electricidad</option>
+            <option value="Fontanería">Fontanería</option>
+            <option value="Ferretería General">Ferretería General</option>
+        </select>
+
+        <label for="marca">Marca:</label>
+        <input type="text" id="marca" name="marca" placeholder="Marca del producto">
+
+        <label for="precio">Precio:</label>
+        <input type="number" step="0.01" id="precio" name="precio" placeholder="Precio en USD" required>
+
+        <label for="unidad_medida">Unidad de medida:</label>
+        <select id="unidad_medida" name="unidad_medida" required>
+            <option value="" disabled selected>Selecciona una unidad</option>
+            <option value="unidad">Unidad</option>
+            <option value="caja">Caja</option>
+            <option value="metro">Metro</option>
+            <option value="litro">Litro</option>
+            <option value="kilogramo">Kilogramo</option>
+            <option value="paquete">Paquete</option>
+        </select>
+
+        <label for="disponible">Disponible:</label>
+        <select id="disponible" name="disponible" required>
+            <option value="" disabled selected>Selecciona disponibilidad</option>
+            <option value="Disponible">Disponible</option>
+            <option value="Agotado">Agotado</option>
+        </select>
+
+        <button type="submit">Guardar Producto</button>
+    </form>
+
+</body>
+</html>
