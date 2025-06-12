@@ -25,6 +25,7 @@ urlpatterns = [
     path('', home),
     path('Iniciar/', usuarios_views.Iniciar),
     path('Registrar/', usuarios_views.Registrar),
+    
     path('Crear_usuarios/', Crearusuario),
     path('Listar_usuarios/', ListarUsuarios),
     path('Editar_usuarios/', EditarUsuario),

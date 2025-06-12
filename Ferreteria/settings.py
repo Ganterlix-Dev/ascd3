@@ -86,7 +86,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'FerreteriaDB',  # Nombre de tu base de datos
         'USER': 'postgres',  # Usuario de tu base de datos
-        'PASSWORD': 'postgresql',  # Contraseña de tu base de datos
+        'PASSWORD': 'postgres',  # Contraseña de tu base de datos
         'HOST': 'localhost',  # O la IP de tu servidor
         'PORT': '5432',  # Puerto predeterminado de PostgreSQL
     }

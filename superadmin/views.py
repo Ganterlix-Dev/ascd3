@@ -32,7 +32,7 @@ def EditarUsuario(request):
     usuario_seleccionado = None
     form = None
 
-    if request.method == "POST" and "usuario_id" in request.POST:
+    if request.method == "POST" and "usuario_id" in request.POST and "guardar_cambios" not in request.POST:
         usuario_seleccionado = get_object_or_404(Persona, id=request.POST["usuario_id"])
         form = RegistroForm(instance=usuario_seleccionado)
 
@@ -40,7 +40,11 @@ def EditarUsuario(request):
         usuario_seleccionado = get_object_or_404(Persona, id=request.POST["usuario_id"])
         form = RegistroForm(request.POST, instance=usuario_seleccionado)
         if form.is_valid():
-            form.save()
+            user = form.save(commit=False)
+            password = form.cleaned_data.get('password')
+            if password:
+                user.password = make_password(password)
+            user.save()
             return redirect('/Listar_usuarios')  # Recarga la página para mostrar cambios
 
     return render(request, "modificar_usuarios.html", {"usuarios": usuarios, "form": form, "usuario_seleccionado": usuario_seleccionado})

@@ -22,11 +22,21 @@ def Iniciar(request):
         email = request.POST.get('correo')
         password = request.POST.get('password')
         user = authenticate(request, correo=email, password=password)
+
         if user is not None:
-            login(request, user)
-            return redirect('/')
+            login(request, user)  # Inicia sesión
+            request.session['usuario_id'] = user.id  # Almacena el ID del usuario en la sesión
+            request.session['rol'] = user.rol  # Guarda el rol del usuario
+
+            if user.rol == 'Admin':
+                return redirect('/Listar_usuarios')
+            elif user.rol == 'Empleado':
+                return redirect('/empleado')
+            elif user.rol == 'Usuario':
+                return redirect('/usuario')
         else:
-            return render(request, 'Iniciar.html', {'error': 'Correo de usuario o contraseña incorrectos.'})
+            return render(request, 'Iniciar.html', {'error': 'Correo o contraseña incorrectos.'})
+
     return render(request, 'Iniciar.html')
 
 def Registrar(request):
@@ -43,7 +53,7 @@ def Registrar(request):
             user = authenticate(request, correo=user.correo, password=password)  # Autenticar al usuario
             if user is not None:
                 login(request, user)  # Iniciar sesión
-                return redirect('/')
+                return redirect('/iniciar')
             else:
                 return render(request, 'Crear_usuario.html', {'form': form, 'error': 'Error al autenticar usuario'})
         else:	

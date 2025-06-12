@@ -7,6 +7,66 @@
     <meta charset="UTF-8">
     <title>Crear Usuario</title>
 </head>
+<style>
+.form-group label {
+  display: block;
+  color: #333;
+  font-size: 14px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.userform {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 6px;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  outline: none;
+}
+.btn-danger {
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-decoration: none;
+    display: inline-block;
+}
+.btn-danger:hover {
+    background: #b52a37;
+}
+
+.btn-submit {
+    background: #198754;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: inline-block;
+}
+.btn-submit:hover {
+    background: #146c43;
+}
+
+/* Centrar ambos botones */
+.form-actions {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center;
+    gap: 12px;
+}
+</style>
 <body>
 
     <header class="header-section">
@@ -23,9 +83,9 @@
                     </h3>
                 </div>
                 
-                {% csrf_token %}
                 <form method="POST">
-                <div class="user-form">
+                    {% csrf_token %}
+                <div class="userform">
                     <div class="form-grid">
                         <div class="form-group">
                             <label for="nombre">
@@ -63,6 +123,13 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="password">
+                                <i class="fas fa-lock"></i> Contraseña:
+                            </label>
+                            <input type="password" name="password" id="password" placeholder="Ingresa la contraseña" required>
+                        </div>
+
+                        <div class="form-group">
                             <label for="rol">
                                 <i class="fas fa-user-tag"></i> Rol:
                             </label>
@@ -75,12 +142,12 @@
                         </div>
                     </div>
 
-                    <div class="form-actions">
+                    <div class="action-cell">
                         <button type="submit" class="btn-submit">
                             <i class="fas fa-save"></i> Crear Usuario
                         </button>
-                        <a href="#" class="btn-cancel">
-                            <i class="fas fa-arrow-left"></i> Cancelar
+                        <a href="/Listar_usuarios" class="btn-danger">
+                        Cancelar
                         </a>
                     </div>
                 </form>
