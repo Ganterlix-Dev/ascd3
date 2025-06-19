@@ -66,7 +66,13 @@
                 <tbody>
                     {% for producto in producto %}
                     <tr>
-                        <td>{{ producto.imagen }}</td>
+                        <td>
+                        {% if producto.imagen %}
+                            <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+                        {% else %}
+                            <p>No hay imagen disponible</p>
+                        {% endif %}
+                        </td>
                         <td>{{ producto.nombre }}</td>
                         <td>{{ producto.descripcion }}</td>
                         <td>{{ producto.categoria }}</td>

@@ -5,48 +5,183 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{% static 'Usuarios.css' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <title>Editar Producto</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Estilos adicionales para los form-group */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #495057;
+            font-size: 14px;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #a7d477;
+            box-shadow: 0 0 0 3px rgba(167, 212, 119, 0.1);
+        }
+        
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .form-group input[type="file"] {
+            padding: 8px;
+            border: 2px dashed #e9ecef;
+            background: #f8f9fa;
+        }
+        
+        .form-group input[type="file"]:hover {
+            border-color: #a7d477;
+            background: rgba(167, 212, 119, 0.05);
+        }
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-danger:hover {
+            background: #b52a37;
+        }
+    </style>
 </head>
 <body>
 
     <header class="header-section">
-        <h1>Editar Producto</h1>
+        <h1><i class="fas fa-edit"></i> Editar Producto</h1>
         <p>Selecciona un producto y edita su información</p>
     </header>
 
     <main class="main-container">
         <div class="table-card">
             <div class="table-header">
-                <h3>Seleccionar Producto</h3>
+                <h3><i class="fas fa-box"></i> Seleccionar Producto</h3>
             </div>
-            <form method="POST" class="stats-section">
-                {% csrf_token %}
-                <label for="producto_id">Selecciona un producto:</label>
-                <select name="producto_id" onchange="this.form.submit()" class="user-table">
-                    <option value="" disabled selected>-- Selecciona --</option>
-                    {% for producto in producto %}
-                        <option value="{{ producto.id }}" {% if producto_seleccionado and producto_seleccionado.id == producto.id %}selected{% endif %}>
-                            {{ producto.nombre }} (ID: {{ producto.id }})
-                        </option>
-                    {% endfor %}
-                </select>
-            </form>
+            <div class="stats-section">
+                <form method="POST">
+                    {% csrf_token %}
+                    <label for="producto_id" class="stat-label" style="display: block; margin-bottom: 10px; font-weight: 600;">Selecciona un producto:</label>
+                    <select name="producto_id" onchange="this.form.submit()" style="width: 100%; padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 14px; background: white;">
+                        <option value="" disabled selected>-- Selecciona --</option>
+                        {% for producto in producto %}
+                            <option value="{{ producto.id }}" {% if producto_seleccionado and producto_seleccionado.id == producto.id %}selected{% endif %}>
+                                {{ producto.nombre }} (ID: {{ producto.id }})
+                            </option>
+                        {% endfor %}
+                    </select>
+                </form>
+            </div>
         </div>
 
         {% if producto_seleccionado %}
         <div class="table-card">
             <div class="table-header">
-                <h3>Editar Información</h3>
+                <h3><i class="fas fa-info-circle"></i> Editar Información</h3>
             </div>
-            <form method="POST">
-                {% csrf_token %}
-                <input type="hidden" name="producto_id" value="{{ producto_seleccionado.id }}">
-                {{ form.as_p }}
-                <div class="action-cell">
-                    <button type="submit" name="guardar_cambios" class="btn-edit">Guardar Cambios</button>
-                </div>
-            </form>
+            <div style="padding: 30px;">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="producto_id" value="{{ producto_seleccionado.id }}">
+                    
+                    <div style="display: grid; gap: 20px;">
+                        <div class="form-group">
+                            <label for="{{ form.nombre.id_for_label }}">
+                                <i class="fas fa-tag" style="margin-right: 8px; color: #a7d477;"></i>Nombre:
+                            </label>
+                            {{ form.nombre }}
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="{{ form.descripcion.id_for_label }}">
+                                <i class="fas fa-align-left" style="margin-right: 8px; color: #a7d477;"></i>Descripción:
+                            </label>
+                            {{ form.descripcion }}
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="{{ form.categoria.id_for_label }}">
+                                <i class="fas fa-list" style="margin-right: 8px; color: #a7d477;"></i>Categoría:
+                            </label>
+                            {{ form.categoria }}
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="{{ form.marca.id_for_label }}">
+                                <i class="fas fa-copyright" style="margin-right: 8px; color: #a7d477;"></i>Marca:
+                            </label>
+                            {{ form.marca }}
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="{{ form.precio.id_for_label }}">
+                                <i class="fas fa-dollar-sign" style="margin-right: 8px; color: #a7d477;"></i>Precio:
+                            </label>
+                            {{ form.precio }}
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="{{ form.unidad_medida.id_for_label }}">
+                                <i class="fas fa-ruler" style="margin-right: 8px; color: #a7d477;"></i>Unidad de Medida:
+                            </label>
+                            {{ form.unidad_medida }}
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="{{ form.disponible.id_for_label }}">
+                                <i class="fas fa-check-circle" style="margin-right: 8px; color: #a7d477;"></i>Disponible:
+                            </label>
+                            {{ form.disponible }}
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="{{ form.imagen.id_for_label }}">
+                                <i class="fas fa-image" style="margin-right: 8px; color: #a7d477;"></i>Imagen:
+                            </label>
+                            {{ form.imagen }}
+                            <small style="display: block; margin-top: 5px; color: #6c757d; font-size: 12px;">
+                                <i class="fas fa-info-circle"></i> Selecciona una nueva imagen si deseas cambiar la actual
+                            </small>
+                        </div>
+                    </div>
+                    
+                    <div class="action-cell" style="margin-top: 30px;">
+                        <button type="submit" name="guardar_cambios" class="btn-edit">
+                            <i class="fas fa-save"></i> Guardar Cambios
+                        </button>
+                        <a  href="/Listar_productos"  class="btn-danger">
+                            Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
         </div>
         {% endif %}
     </main>

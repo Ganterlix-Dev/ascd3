@@ -8,63 +8,136 @@
     <title>Crear Usuario</title>
 </head>
 <style>
+.form-group {
+    margin-bottom: 20px;
+}
+
 .form-group label {
-  display: block;
-  color: #333;
-  font-size: 14px;
-  padding: 5px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #495057;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    padding: 0;
+}
+
+.form-group label i {
+    color: #a7d477;
+    width: 16px;
+    text-align: center;
 }
 
 .userform {
-  display: block;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-  width: 100%;
-  padding: 0.75rem;
-  border-radius: 6px;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  outline: none;
+    padding: 30px;
+    display: grid;
+    gap: 20px;
 }
+
+.userform input,
+.userform select,
+.userform textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 14px;
+    background: white;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+    font-weight: 400;
+    margin-bottom: 0;
+}
+
+.userform input:focus,
+.userform select:focus,
+.userform textarea:focus {
+    border-color: #a7d477;
+    box-shadow: 0 0 0 3px rgba(167, 212, 119, 0.1);
+}
+
 .btn-danger {
     background: #dc3545;
     color: white;
     border: none;
     border-radius: 20px;
-    padding: 8px 20px;
+    padding: 10px 20px;
     font-size: 14px;
+    font-weight: 500;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: all 0.3s ease;
     text-decoration: none;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 }
+
 .btn-danger:hover {
-    background: #b52a37;
+    background: #c82333;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(220, 53, 69, 0.3);
 }
 
 .btn-submit {
-    background: #198754;
+    background: #28a745;
     color: white;
     border: none;
     border-radius: 20px;
-    padding: 8px 20px;
+    padding: 10px 20px;
     font-size: 14px;
+    font-weight: 500;
     cursor: pointer;
-    transition: background 0.2s;
-    display: inline-block;
-}
-.btn-submit:hover {
-    background: #146c43;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 }
 
-/* Centrar ambos botones */
+.btn-submit:hover {
+    background: #218838;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(40, 167, 69, 0.3);
+}
+
 .form-actions {
     display: flex !important;
     justify-content: center !important;
     align-items: center;
-    gap: 12px;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.form-grid {
+    display: grid;
+    gap: 20px;
+}
+
+.form-error {
+    color: #dc3545;
+    font-size: 12px;
+    margin-top: 10px;
+    padding: 12px;
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.form-container {
+    width: 100%;
+}
+
+/* Responsive grid para formularios */
+@media (min-width: 768px) {
+    .form-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    
+    .form-group:nth-child(7) {
+        grid-column: 1 / -1;
+    }
 }
 </style>
 <body>
@@ -137,20 +210,26 @@
                                 <option value="" disabled selected>-- Selecciona un rol --</option>
                                 <option value="Admin">Administrador</option>
                                 <option value="Usuario">Usuario</option>
-                                <option value="Supervisor">Supervisor</option>
+                                <option value="Empleado">Empleado</option>
                             </select>
                         </div>
                     </div>
-
+                    
                     <div class="action-cell">
                         <button type="submit" class="btn-submit">
                             <i class="fas fa-save"></i> Crear Usuario
                         </button>
                         <a href="/Listar_usuarios" class="btn-danger">
-                        Cancelar
+                            Cancelar
                         </a>
                     </div>
                 </form>
+                {% if error %}
+                    <div class="form-error">Datos existentes: ya se ha registrado un usuario con estos datos.</div>
+                {% endif %}
+                {% if field.error %}
+                    <div class="form-error">{{ field.error }}</div>
+                {% endif %}
             </div>
         </div>
     </div>

@@ -6,12 +6,14 @@ from django.contrib.auth.hashers import make_password
 # Leer usuarios
 def ListarProducto(request):
     producto = Producto.objects.all()
-    return render(request, 'Productos.html', {'producto': producto})
+    print(producto)  # Ahora es una lista de objetos
+    return render(request, 'Productos.html', {'producto': producto})  # Cambia el nombre en el contexto
+
 
 # Crear usuario
 def CrearProducto(request):
     if request.method == "POST":
-        form = ProductoForm(request.POST)
+        form = ProductoForm(request.POST, request.FILES) 
         if form.is_valid():
             producto = form.save(commit=False)
             producto.save()

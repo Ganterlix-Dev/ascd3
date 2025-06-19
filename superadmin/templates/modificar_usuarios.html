@@ -9,40 +9,123 @@
     <title>Editar Usuario</title>
 </head>
 <style>
+.form-group {
+    margin-bottom: 20px;
+}
+
 .form-group label {
-    display: block;
-    color: #333;
-    font-size: 14px;
-    padding: 5px;
     display: flex;
     align-items: center;
     gap: 8px;
+    color: #495057;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    padding: 0;
+}
+
+.form-group label i {
+    color: #a7d477;
+    width: 16px;
+    text-align: center;
 }
 
 .userform {
-  display: block;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-  width: 100%;
-  padding: 0.75rem;
-  border-radius: 6px;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  outline: none;
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 14px;
+    background: white;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
 }
+
+.userform:focus {
+    border-color: #a7d477;
+    box-shadow: 0 0 0 3px rgba(167, 212, 119, 0.1);
+}
+
+.userform input,
+.userform select,
+.userform textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 14px;
+    background: white;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+}
+
+.userform input:focus,
+.userform select:focus,
+.userform textarea:focus {
+    border-color: #a7d477;
+    box-shadow: 0 0 0 3px rgba(167, 212, 119, 0.1);
+}
+
 .btn-danger {
     background: #dc3545;
     color: white;
     border: none;
     border-radius: 20px;
-    padding: 8px 20px;
+    padding: 10px 20px;
     font-size: 14px;
+    font-weight: 500;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: all 0.3s ease;
     text-decoration: none;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 }
+
 .btn-danger:hover {
-    background: #b52a37;
+    background: #c82333;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(220, 53, 69, 0.3);
+}
+
+.form-error {
+    color: #dc3545;
+    font-size: 12px;
+    margin-top: 5px;
+    padding: 8px;
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+}
+
+/* Mejorar el select del usuario */
+select[name="usuario_id"] {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 14px;
+    background: white;
+    transition: border-color 0.3s ease;
+}
+
+select[name="usuario_id"]:focus {
+    border-color: #a7d477;
+    box-shadow: 0 0 0 3px rgba(167, 212, 119, 0.1);
+    outline: none;
+}
+
+/* Espaciado del formulario */
+.stats-section {
+    padding: 20px;
+}
+
+.action-cell {
+    padding: 20px;
+    gap: 15px;
 }
 </style>
 <body>

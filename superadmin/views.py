@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from usuarios.models import Persona
 from .forms import RegistroForm
 from django.contrib.auth.hashers import make_password
+from django.db import IntegrityError
 
 # Leer usuarios
 def ListarUsuarios(request):
@@ -10,21 +11,27 @@ def ListarUsuarios(request):
 
 # Crear usuario
 def Crearusuario(request):
+    error = None
     if request.method == "POST":
         form = RegistroForm(request.POST)
         if form.is_valid():
-            user = form.save(commit=False)
-            password = form.cleaned_data.get('password')
-            if password:
-                user.password = make_password(password)
-            user.save()
-            return redirect("/Listar_usuarios")
+            try:
+                user = form.save(commit=False)
+                password = form.cleaned_data.get('password')
+                if password:
+                    user.password = make_password(password)
+                user.save()
+                return redirect("/Listar_usuarios")
+            except IntegrityError:
+                error = "Ya existe un usuario con ese valor único. Por favor, ingrese otro."
+            except Exception as e:
+                error = "Ocurrió un error al registrar el usuario."
         else:
-            print(form.errors)
+            error = "Por favor, corrija los errores en el formulario."
     else:
         form = RegistroForm()
 
-    return render(request, "crear_usuarios.html", {"form": form})
+    return render(request, "crear_usuarios.html", {"form": form, "error": error})
 # Actualizar usuario
 
 def EditarUsuario(request):

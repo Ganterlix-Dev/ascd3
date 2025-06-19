@@ -35,25 +35,16 @@ body {
 }
 
 .btn-create {
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    border: 2px solid white;
+    background: #a7d477;
+    color: rgb(255, 255, 255);
     border-radius: 25px;
+    border: #a7d477;
     padding: 12px 30px;
     font-size: 16px;
     font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
     display: inline-flex;
     align-items: center;
     gap: 10px;
-}
-
-.btn-create:hover {
-    background: white;
-    color: #a7d477;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .main-container {

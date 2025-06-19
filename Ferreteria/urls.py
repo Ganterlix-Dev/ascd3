@@ -16,10 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from ventas.views import home, agregar_al_carrito, ver_carrito, quitar_del_carrito, listar_productos
 from usuarios import views as usuarios_views
 from superadmin.views import ListarUsuarios,EditarUsuario,EliminarUsuario,Crearusuario 
 from empleado.views import CrearProducto, ListarProducto, EditarProducto, EliminarProducto
+
 
 urlpatterns = [
     path('', home),
@@ -46,3 +49,6 @@ urlpatterns = [
     # Productos
     path('productos/listar/', listar_productos, name='listar_productos'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
