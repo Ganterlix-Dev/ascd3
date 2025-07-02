@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Contraseña</title>
+    <meta name="description" content="Recupera tu contraseña ingresando tu correo electrónico">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #a7d477 0%, #ffcf50 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            padding: 1rem;
+        }
+        
+        .container {
+            background: #f8f9fa;
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 450px;
+            width: 100%;
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1rem;
+            color: #7f8c8d;
+            line-height: 1.5;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: 500;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #a7d477;
+            box-shadow: 0 0 0 3px rgba(167, 212, 119, 0.1);
+        }
+        
+        .form-input.error {
+            border-color: #e74c3c;
+            box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+        
+        .btn-submit {
+            width: 100%;
+            background: #a7d477;
+            color: white;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(167, 212, 119, 0.3);
+        }
+        
+        .btn-submit:hover:not(:disabled) {
+            background: #8bc34a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(167, 212, 119, 0.4);
+        }
+        
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #7f8c8d;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-top: 1.5rem;
+            transition: color 0.3s ease;
+        }
+        
+        .btn-back:hover {
+            color: #2c3e50;
+        }
+        
+        .success-message {
+            display: none;
+            text-align: center;
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .success-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: bounce 1s ease-out;
+        }
+        
+        .success-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #27ae60;
+            margin-bottom: 1rem;
+        }
+        
+        .success-text {
+            color: #7f8c8d;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+        
+        .email-highlight {
+            color: #a7d477;
+            font-weight: 600;
+        }
+        
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 53%, 80%, 100% {
+                transform: translate3d(0,0,0);
+            }
+            40%, 43% {
+                transform: translate3d(0, -10px, 0);
+            }
+            70% {
+                transform: translate3d(0, -5px, 0);
+            }
+            90% {
+                transform: translate3d(0, -2px, 0);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 480px) {
+            .container {
+                padding: 2rem 1.5rem;
+            }
+            
+            .title {
+                font-size: 1.5rem;
+            }
+            
+            .subtitle {
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* Accesibilidad */
+        @media (prefers-reduced-motion: reduce) {
+            .container, .success-message {
+                animation: none;
+            }
+            .success-icon {
+                animation: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Formulario inicial -->
+        <div id="form-container">
+            <div class="header">
+                <span class="icon">🔐</span>
+                <h1 class="title">Recuperar Contraseña</h1>
+                <p class="subtitle">
+                    Ingresa tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.
+                </p>
+            </div>
+            
+            <form id="recovery-form">
+                <div class="form-group">
+                    <label for="email" class="form-label">Correo Electrónico</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        class="form-input" 
+                        placeholder="tu@ejemplo.com"
+                        required
+                        autocomplete="email"
+                    >
+                    <div class="error-message" id="email-error">
+                        Por favor, ingresa un correo electrónico válido.
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn-submit" id="submit-btn">
+                    Enviar Enlace de Recuperación
+                </button>
+            </form>
+            
+            <a href="/" class="btn-back">
+                <span>←</span>
+                Volver al inicio de sesión
+            </a>
+        </div>
+        
+        <!-- Mensaje de éxito -->
+        <div id="success-container" class="success-message">
+            <div class="success-icon">✅</div>
+            <h2 class="success-title">¡Correo Enviado!</h2>
+            <p class="success-text">
+                Hemos enviado un enlace de recuperación a <span class="email-highlight" id="user-email"></span>. 
+                Revisa tu bandeja de entrada y sigue las instrucciones para restablecer tu contraseña.
+            </p>
+            <p class="success-text" style="font-size: 0.9rem; margin-top: 1rem;">
+                Si no ves el correo, revisa tu carpeta de spam.
+            </p>
+            <a href="/" class="btn-back">
+                <span>←</span>
+                Volver al inicio de sesión
+            </a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('recovery-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const emailInput = document.getElementById('email');
+            const emailError = document.getElementById('email-error');
+            const submitBtn = document.getElementById('submit-btn');
+            const formContainer = document.getElementById('form-container');
+            const successContainer = document.getElementById('success-container');
+            const userEmailSpan = document.getElementById('user-email');
+            
+            // Limpiar errores previos
+            emailInput.classList.remove('error');
+            emailError.style.display = 'none';
+            
+            // Validar email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailInput.value)) {
+                emailInput.classList.add('error');
+                emailError.style.display = 'block';
+                return;
+            }
+            
+            // Simular envío
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Enviando...';
+            
+            setTimeout(() => {
+                // Mostrar mensaje de éxito
+                userEmailSpan.textContent = emailInput.value;
+                formContainer.style.display = 'none';
+                successContainer.style.display = 'block';
+            }, 2000);
+        });
+        
+        // Limpiar error al escribir
+        document.getElementById('email').addEventListener('input', function() {
+            this.classList.remove('error');
+            document.getElementById('email-error').style.display = 'none';
+        });
+    </script>
+</body>
+</html>

@@ -1,5 +1,8 @@
-{% load static %}
+{% extends "base.html" %}
+
+{% block content %}
 <!DOCTYPE html>
+{% load static %}
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -75,10 +78,10 @@
 </head>
 <body>
 
-    <header class="header-section">
+    <div class="header-section">
         <h1><i class="fas fa-edit"></i> Editar Producto</h1>
         <p>Selecciona un producto y edita su información</p>
-    </header>
+    </div>
 
     <main class="main-container">
         <div class="table-card">
@@ -86,7 +89,7 @@
                 <h3><i class="fas fa-box"></i> Seleccionar Producto</h3>
             </div>
             <div class="stats-section">
-                <form method="POST">
+                <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <label for="producto_id" class="stat-label" style="display: block; margin-bottom: 10px; font-weight: 600;">Selecciona un producto:</label>
                     <select name="producto_id" onchange="this.form.submit()" style="width: 100%; padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 14px; background: white;">
@@ -176,8 +179,10 @@
                         <button type="submit" name="guardar_cambios" class="btn-edit">
                             <i class="fas fa-save"></i> Guardar Cambios
                         </button>
-                        <a  href="/Listar_productos"  class="btn-danger">
-                            Cancelar
+                    </div>
+                    <div class="action-cell" style="margin-top: 20px;">
+                        <a href="/Listar_productos" class="btn-danger">
+                            <i class="fas fa-times"></i> Cancelar
                         </a>
                     </div>
                 </form>
@@ -188,3 +193,5 @@
 
 </body>
 </html>
+
+{% endblock %}

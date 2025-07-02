@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>403 - Acceso Prohibido</title>
+    <meta name="description" content="Acceso prohibido - No tienes permisos para acceder a esta página">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #a7d477 0%, #ffcf50 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            padding: 1rem;
+        }
+        
+        .container {
+            text-align: center;
+            background: #f8f9fa;
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .error-code {
+            font-size: 6rem;
+            font-weight: 700;
+            color: #a7d477;
+            margin-bottom: 1rem;
+            line-height: 1;
+            text-shadow: 0 2px 4px rgba(167, 212, 119, 0.3);
+        }
+        
+        .error-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        
+        .error-message {
+            font-size: 1rem;
+            color: #7f8c8d;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #a7d477;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(167, 212, 119, 0.3);
+        }
+        
+        .btn-home:hover {
+            background: #8bc34a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(167, 212, 119, 0.4);
+        }
+        
+        .btn-home:active {
+            transform: translateY(0);
+        }
+        
+        .icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+        
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        /* Accesibilidad */
+        @media (prefers-reduced-motion: reduce) {
+            .container {
+                animation: none;
+            }
+            .icon {
+                animation: none;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .error-code {
+                font-size: 4rem;
+            }
+            
+            .container {
+                padding: 2rem 1.5rem;
+            }
+            
+            .error-title {
+                font-size: 1.25rem;
+            }
+            
+            .error-message {
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* Mejora de contraste para accesibilidad */
+        @media (prefers-contrast: high) {
+            .error-message {
+                color: #5a6c7d;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon" role="img" aria-label="Acceso prohibido">🚫</div>
+        <div class="error-code" aria-label="Error 403">403</div>
+        <h1 class="error-title">Acceso Prohibido</h1>
+        <p class="error-message">
+            Lo sentimos, no tienes permisos para acceder a esta página. 
+            Si crees que esto es un error, contacta al administrador del sitio.
+        </p>
+        <a href="/" class="btn-home" aria-label="Regresar a la página principal">
+            Volver al Inicio
+        </a>
+    </div>
+</body>
+</html>

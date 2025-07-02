@@ -1,5 +1,8 @@
-{% load static %}
+{% extends "base.html" %}
+
+{% block content %}
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -68,7 +71,7 @@
                     <tr>
                         <td>
                         {% if producto.imagen %}
-                            <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+                            <img style="width: auto; height: 80px; position: relative; left: 50px; object-fit: cover;" src="{{ producto.imagen.url }}">
                         {% else %}
                             <p>No hay imagen disponible</p>
                         {% endif %}
@@ -88,3 +91,5 @@
     </div>
 </body>
 </html>
+
+{% endblock %}

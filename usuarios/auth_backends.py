@@ -6,7 +6,7 @@ class EmailAuthBackend(ModelBackend):
     def authenticate(self, request, correo=None, password=None, **kwargs):
         try:
             user = Persona.objects.get(correo=correo)
-            if user and check_password(password, user.password):  # ✅ Compara la contraseña cifrada
+            if user and check_password(password, user.password): 
                 return user
         except Persona.DoesNotExist:
             return None

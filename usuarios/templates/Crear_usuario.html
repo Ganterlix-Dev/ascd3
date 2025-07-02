@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         {% load static %}
-        <link rel="stylesheet" href="{% static 'Crear_usuario.css' %}">
+        <link rel="stylesheet" href="{% static 'crear.css' %}">
 
 
     <title>Registro</title>
@@ -21,32 +22,32 @@
             <div class="form-row">
                 <div class="form-group">
                     <label for="firstName">Nombre</label>
-                    <input type="text" id="nombre" name="nombre" placeholder="Juan" required>
+                    <input type="text" id="nombre" name="nombre" placeholder="Juan" maxlength="15" required>
                 </div>
                 <div class="form-group">
                     <label for="lastName">Apellido</label>
-                    <input type="text" id="apellido" name="apellido" placeholder="Pérez" required>
+                    <input type="text" id="apellido" name="apellido" placeholder="Pérez" maxlength="15" required>
                 </div>
             </div>
             
             <div class="form-group">
                 <label for="cedula">Cédula de identidad</label>
-                <input type="text" id="cedula" name="cedula" placeholder="12.345.678" required>
+                <input type="text" id="cedula" name="cedula" placeholder="12.345.678" maxlength="10" required>
             </div>
             
             <div class="form-group">
                 <label for="telefono">Teléfono</label>
-                <input type="tel" id="telefono" name="telefono" placeholder="+58 414 123 4567" required>
+                <input type="tel" id="telefono" name="telefono" placeholder="+58 414 123 4567" maxlength="20" required>
             </div>
             
             <div class="form-group">
                 <label for="email">Correo electrónico</label>
-                <input type="email" id="correo" name="correo" placeholder="tu@email.com" required>
+                <input type="email" id="correo" name="correo" placeholder="tu@email.com" maxlength="50" required>
             </div>
             
             <div class="form-group">
                 <label for="password">Contraseña</label>
-                <input type="password" id="password" name="password" placeholder="••••••••" required>
+                <input type="password" id="password" name="password" placeholder="••••••••" maxlength="50"  required>
                 <div class="password-strength">
                     <div class="strength-bar">
                         <div class="strength-fill"></div>
@@ -57,7 +58,7 @@
             
             <div class="form-group">
                 <label for="confirmPassword">Confirmar contraseña</label>
-                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="••••••••" required>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="••••••••" maxlength="50" required>
             </div>
             
             <div class="terms-checkbox">
@@ -75,7 +76,9 @@
         </div>
         
         <div class="login-link">
-            ¿Ya tienes cuenta? <a href="/Iniciar">Inicia sesión</a>
+            ¿Ya tienes cuenta? <a href="{% url 'Iniciar' %}">Inicia sesión</a>
+            <br>
+            <a href="{% url 'home' %}">Presiona aqui para Volver!</a>
         </div>
     </div>
 </body>

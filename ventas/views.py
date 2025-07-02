@@ -3,50 +3,18 @@ from .models import Carrito
 from .forms import CarritoForm
 from django.shortcuts import get_object_or_404, redirect
 from empleado.models import Producto
-# Create your views here.
+from django.contrib.auth.decorators import login_required
+
 
 def home(request):
     return render(request, 'home.html')
 
+def error_404(request, exception):
+    return render(request, '404.html', status=404)
 
-def agregar_al_carrito(request, producto_id):
-    producto = get_object_or_404(Producto, id=producto_id)
-    carrito, _ = Carrito.objects.get_or_create(usuario=request.user)
-
-    # Agregar el producto al carrito o incrementar cantidad si ya existe
-    item, creado = CarritoForm.objects.get_or_create(carrito=carrito, producto=producto)
-    if not creado:
-        item.cantidad += 1
-        item.save()
-
-    return redirect('ver_carrito.html')
-
-
-def quitar_del_carrito(request, producto_id):
-    carrito = get_object_or_404(Carrito, usuario=request.user)
-    item = CarritoForm.objects.filter(carrito=carrito, producto_id=producto_id).first()
-
-    if item:
-        if item.cantidad > 1:
-            item.cantidad -= 1
-            item.save()
-        else:
-            item.delete()
-
-    return redirect('ver_carrito.html')
-
-
-def ver_carrito(request):
-    carrito = Carrito.objects.filter(usuario=request.user).first()
-    items = carrito.CarritoForm_set.all() if carrito else []
-
-    return render(request, 'ver_carrito.html', {'items': items})
-
-
-def listar_productos(request):
+def catalogo(request):
     productos = Producto.objects.all()
-    return render(request, 'listar_productos.html', {'productos': productos})
-
+    return render(request, 'catalogo.html', {'productos': productos})
 
 
 # def ListarProducto(request):

@@ -61,6 +61,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
+            BASE_DIR / 'Ferreteria' / 'templates', 
             BASE_DIR / 'usuarios' / 'templates',
             BASE_DIR / 'ventas' / 'templates',
             BASE_DIR / 'empleado' / 'templates',
@@ -115,6 +116,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTHENTICATION_BACKENDS = ['usuarios.auth_backends.EmailAuthBackend']
 
+AUTH_USER_MODEL = 'usuarios.Persona'
+
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
@@ -132,9 +135,15 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+LOGIN_URL = '/Iniciar/'  # O el path que uses para el login
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+DEBUG = False
+ALLOWED_HOSTS = ['*']
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

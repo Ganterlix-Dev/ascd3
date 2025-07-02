@@ -18,37 +18,33 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from ventas.views import home, agregar_al_carrito, ver_carrito, quitar_del_carrito, listar_productos
+from ventas.views import home, error_404 
 from usuarios import views as usuarios_views
 from superadmin.views import ListarUsuarios,EditarUsuario,EliminarUsuario,Crearusuario 
 from empleado.views import CrearProducto, ListarProducto, EditarProducto, EliminarProducto
+from django.conf.urls import handler404
+
+handler404 = 'ventas.views.error_404'
 
 
 urlpatterns = [
-    path('', home),
-    path('Iniciar/', usuarios_views.Iniciar),
-    path('Registrar/', usuarios_views.Registrar),
+    path('', home, name='home'),
     
-    path('Crear_usuarios/', Crearusuario),
-    path('Listar_usuarios/', ListarUsuarios),
-    path('Editar_usuarios/', EditarUsuario),
-    path('Eliminar_usuarios/', EliminarUsuario),
+
+    path('logout/', usuarios_views.cerrar_sesion, name='logout'),
+    path('recuperar/', usuarios_views.recuperar, name='recuperar'),
+    path('Iniciar/', usuarios_views.Iniciar, name='Iniciar'),
+    path('Registrar/', usuarios_views.Registrar, name='Registrar'),
     
-    path('Crear_productos/', CrearProducto),
-    path('Listar_productos/', ListarProducto),
-    path('Editar_productos/', EditarProducto),
-    path('Eliminar_productos/', EliminarProducto),
+    path('Crear_usuarios/', Crearusuario, name='Crear_usuarios'),
+    path('Listar_usuarios/', ListarUsuarios, name='Listar_usuarios'),
+    path('Editar_usuarios/', EditarUsuario, name='Editar_usuarios'),
+    path('Eliminar_usuarios/', EliminarUsuario, name='Eliminar_usuarios'),
     
-    path('agregar_al_carrito/<int:producto_id>/', agregar_al_carrito),
+    path('Crear_productos/', CrearProducto, name='Crear_productos'),
+    path('Listar_productos/', ListarProducto, name='Listar_productos'),
+    path('Editar_productos/', EditarProducto, name='Editar_productos'),
+    path('Eliminar_productos/', EliminarProducto, name='Eliminar_productos'),
+    
     path('admin/', admin.site.urls, name='admin'),
-    
-    path('carrito/ver/', ver_carrito, name='ver_carrito'),
-    path('carrito/agregar/<int:producto_id>/', agregar_al_carrito,  name='agregar_al_carrito'),
-    path('carrito/quitar/<int:producto_id>/', quitar_del_carrito, name='quitar_del_carrito'),
-
-    # Productos
-    path('productos/listar/', listar_productos, name='listar_productos'),
-]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,5 +1,8 @@
-{% load static %}
+{% extends "base.html" %}
+
+{% block content %}
 <!DOCTYPE html>
+{% load static %}
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -130,13 +133,13 @@ select[name="usuario_id"]:focus {
 </style>
 <body>
 
-    <header class="header-section">
+    <div class="header-section">
         <h1>
             <i class="fa fa-user-edit" aria-hidden="true" style="margin-right:8px;"></i>
             Editar Usuario
         </h1>
         <p>Selecciona un usuario y edita su información</p>
-    </header>
+    </div>
 
     <main class="main-container">
         <div class="table-card">
@@ -208,3 +211,4 @@ select[name="usuario_id"]:focus {
 
 </body>
 </html>
+{% endblock %}

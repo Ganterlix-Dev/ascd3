@@ -1,3 +1,6 @@
+from django.core.mail import send_mail
+from django.contrib.auth import logout
+from django.http import HttpResponse
 from django.shortcuts import render,redirect
 from .forms import RegistroForm
 from django.contrib.auth import login, authenticate
@@ -31,9 +34,9 @@ def Iniciar(request):
             if user.rol == 'Admin':
                 return redirect('/Listar_usuarios')
             elif user.rol == 'Empleado':
-                return redirect('/empleado')
+                return redirect('/Listar_productos')
             elif user.rol == 'Usuario':
-                return redirect('/usuario')
+                return redirect('/')
         else:
             return render(request, 'Iniciar.html', {'error': 'Correo o contraseña incorrectos.'})
 
@@ -53,7 +56,7 @@ def Registrar(request):
             user = authenticate(request, correo=user.correo, password=password)  # Autenticar al usuario
             if user is not None:
                 login(request, user)  # Iniciar sesión
-                return redirect('/iniciar')
+                return redirect('/Iniciar')
             else:
                 return render(request, 'Crear_usuario.html', {'form': form, 'error': 'Error al autenticar usuario'})
         else:	
@@ -61,3 +64,21 @@ def Registrar(request):
     else:
         form = RegistroForm()
     return render(request, 'Crear_usuario.html', {'form': form})
+
+
+
+def cerrar_sesion(request):
+    # Cierra la sesión del usuario
+    logout(request)
+    # Puedes eliminar cookies adicionales si estás usando alguna personalizada:
+    response = redirect('/Iniciar/')  # Cambia a donde quieras redirigir
+    return response
+
+
+def recuperar(request):
+    if request.method == 'POST':
+        correo = request.POST.get('correo')
+        print(correo)
+        return render(request, 'recuperar.html', {'mensaje': 'Correo no encontrado.'})
+
+    return render(request, 'recuperar.html')

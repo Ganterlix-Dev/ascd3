@@ -1,3 +1,7 @@
+
+{% extends "base.html" %}
+
+{% block content %}
 <!DOCTYPE html>
 {% load static %}
 <html lang="es">
@@ -142,10 +146,10 @@
 </style>
 <body>
 
-    <header class="header-section">
+    <div class="header-section">
         <h1><i class="fa-solid fa-user-plus"></i> Crear Usuario</h1>
         <p>Completa el formulario para registrar un nuevo usuario.</p>
-    </header>
+    </div>
 
     <main class="main-container">
         <div class="form-container">
@@ -237,3 +241,5 @@
 
 </body>
 </html>
+
+{% endblock %}

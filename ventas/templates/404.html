@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Página No Encontrada</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(to right, #4ade80, #a3e635, #facc15);
+        }
+        .card-shadow {
+            box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .btn-hover:hover {
+            background-color: #22c55e;
+            transform: translateY(-1px);
+        }
+        .btn-transition {
+            transition: all 0.2s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen flex items-center justify-center gradient-bg p-4">
+        <div class="bg-white rounded-2xl card-shadow p-8 max-w-md w-full text-center">
+            <!-- Ícono de prohibición -->
+            <div class="mb-6">
+                <div class="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                    <svg class="w-16 h-16 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" stroke-width="2"></circle>
+                        <path d="m4.9 4.9 14.2 14.2" stroke-width="2"></path>
+                    </svg>
+                </div>
+                
+                <!-- Número 404 -->
+                <h1 class="text-8xl font-bold text-green-400 mb-2">404</h1>
+                
+                <!-- Título -->
+                <h2 class="text-2xl font-semibold text-gray-700 mb-4">Página No Encontrada</h2>
+                
+                <!-- Descripción -->
+                <p class="text-gray-500 leading-relaxed mb-6">
+                    Lo sentimos, la página que estás buscando no existe o ha sido movida. 
+                    Verifica la URL o regresa al inicio para continuar navegando.
+                </p>
+            </div>
+
+            <!-- Botón de regreso -->
+            <a href="/" class="inline-flex items-center gap-2 bg-green-400 btn-hover text-white font-medium px-6 py-3 rounded-lg btn-transition">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 12 2-2m0 0 7-7 7 7M5 10v10a1 1 0 0 0 1 1h3m10-11 2 2m-2-2v10a1 1 0 0 1-1 1h-3m-6 0a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1m-6 0h6"></path>
+                </svg>
+                Volver al Inicio
+            </a>
+        </div>
+    </div>
+</body>
+</html>

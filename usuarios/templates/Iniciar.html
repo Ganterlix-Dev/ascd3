@@ -31,7 +31,7 @@
                     <input type="checkbox" id="remember" name="remember">
                     <label for="remember">Recordarme</label>
                 </div>
-                <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+                <a href="/recuperar" class="forgot-password">¿Olvidaste tu contraseña?</a>
             </div>
             
             <button type="submit" class="btn-login">Iniciar Sesión</button>
@@ -42,7 +42,9 @@
         </div>
         
         <div class="register-link">
-            ¿No tienes cuenta? <a href="/Registrar">Regístrate aquí</a>
+            ¿No tienes cuenta?<a href="{% url 'Registrar' %}">Regístrate aquí</a>
+            <br>
+            <a href="{% url 'home' %}">Presiona aqui para Volver!</a>
         </div>
     </div>
 </body>

@@ -1,3 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
 <!DOCTYPE html>
 {% load static %}
 <html lang="es">
@@ -146,10 +151,10 @@
 </style>
 <body>
 
-    <header class="header-section">
+    <div class="header-section">
         <h1><i class="fa-solid fa-user-minus"></i> Eliminar Usuario</h1>
         <p>Selecciona un usuario para eliminarlo permanentemente.</p>
-    </header>
+    </div>
 
     <main class="main-container">
         <div class="table-card"">
@@ -181,3 +186,4 @@
 
 </body>
 </html>
+{% endblock %}
