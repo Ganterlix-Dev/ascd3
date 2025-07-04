@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from ventas.views import home, error_404 
+from ventas.views import home, error_404, catalogo 
 from usuarios import views as usuarios_views
 from superadmin.views import ListarUsuarios,EditarUsuario,EliminarUsuario,Crearusuario 
 from empleado.views import CrearProducto, ListarProducto, EditarProducto, EliminarProducto
@@ -47,4 +47,8 @@ urlpatterns = [
     path('Eliminar_productos/', EliminarProducto, name='Eliminar_productos'),
     
     path('admin/', admin.site.urls, name='admin'),
+
+    path('catalogo/', catalogo, name='catalogo')
+
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

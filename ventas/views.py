@@ -7,14 +7,37 @@ from django.contrib.auth.decorators import login_required
 
 
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'catalogo.html')
 
 def error_404(request, exception):
     return render(request, '404.html', status=404)
 
+# views.py
+# views.py
 def catalogo(request):
-    productos = Producto.objects.all()
-    return render(request, 'catalogo.html', {'productos': productos})
+    categoria_nombre = request.GET.get('categoria')
+
+    # Lista fija de categorías definidas en tus productos
+    categorias = [
+        "Herramientas",
+        "Materiales de Construcción",
+        "Pinturas",
+        "Electricidad",
+        "Fontanería",
+        "Ferretería General"
+    ]
+
+    if categoria_nombre in categorias:
+        productos = Producto.objects.filter(categoria__iexact=categoria_nombre)
+    else:
+        productos = Producto.objects.all()
+
+    return render(request, 'catalogo.html', {
+        'productos': productos,
+        'categorias': categorias,
+        'categoria_seleccionada': categoria_nombre,
+    })
+
 
 
 # def ListarProducto(request):

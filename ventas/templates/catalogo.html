@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'catalogo.css' %}">
+    <title>Catálogo - Ferretería El Martillo</title>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>Ferretería El Martillo</h1>
+            <p>Todo para tu hogar y construcción. Más de 25 años de experiencia y calidad.</p>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <nav class="nav-categories">
+            <div class="nav-container">
+                <h2 class="nav-title">Categorías</h2>
+                <a href="{% url 'catalogo' %}" class="nav-item {% if not categoria_seleccionada %}active{% endif %}">Todos</a>
+                {% for cat in categorias %}
+                    <a href="{% url 'catalogo' %}?categoria={{ cat }}"
+                       class="nav-item {% if cat == categoria_seleccionada %}active{% endif %}">
+                       {{ cat }}
+                    </a>
+                {% endfor %}
+            </div>
+        </nav>
+
+        <section class="catalog-section">
+            <h2 class="section-title">Nuestros Productos</h2>
+
+            <div class="products-grid">
+                {% for producto in productos %}
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">{{ producto.nombre }}</h3>
+                            {% if producto.disponible %}
+                                <div class="availability available">
+                                    <span class="status-dot"></span>
+                                    Disponible
+                                </div>
+                            {% else %}
+                                <div class="availability unavailable">
+                                    <span class="status-dot"></span>
+                                    No Disponible
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+</body>
+
+
+</html>
+{% endblock %}
