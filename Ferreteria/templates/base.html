@@ -266,10 +266,10 @@
             <div class="logo">Mi Tienda</div>
             <ul class="nav-links">
             <li><a href="{% url 'home' %}">Inicio</a></li>
+            <li><a href="{% url 'catalogo' %}">Catalogo</a></li>
             {% if request.user.is_authenticated %}
                 {% if request.user.rol == 'Usuario' %}
                 <li><a href="{% url 'ver_carrito' %}">Carrito</a></li>
-                <li><a href="{% url 'productos_listar_productos' %}">Productos</a></li>
                 {% endif %}
                 <li class="auth-dropdown">
                 <select class="auth-select" onchange="if(this.value) window.location.href=this.value">

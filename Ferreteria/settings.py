@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'usuarios',
     'ventas',
     'empleado',
-    'superadmin'
+    'superadmin',
+    'carrito'
 ]
 
 
@@ -66,6 +67,7 @@ TEMPLATES = [
             BASE_DIR / 'ventas' / 'templates',
             BASE_DIR / 'empleado' / 'templates',
             BASE_DIR / 'superadmin' / 'templates',
+            BASE_DIR / 'carrito' / 'templates',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -88,7 +90,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'FerreteriaDB',  # Nombre de tu base de datos
         'USER': 'postgres',  # Usuario de tu base de datos
-        'PASSWORD': 'postgres',  # Contraseña de tu base de datos
+        'PASSWORD': 'postgresql',  # Contraseña de tu base de datos
         'HOST': 'localhost',  # O la IP de tu servidor
         'PORT': '5432',  # Puerto predeterminado de PostgreSQL
     }

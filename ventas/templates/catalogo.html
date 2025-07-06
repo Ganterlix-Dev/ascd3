@@ -39,7 +39,7 @@
 
             <div class="products-grid">
                 {% for producto in productos %}
-                    <div class="product-card">
+                    <a href="/detalles/{{ producto.id }}" style="text-decoration: none;" class="product-card">
                         <div class="product-image">
                             <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
                         </div>
@@ -57,7 +57,7 @@
                                 </div>
                             {% endif %}
                         </div>
-                    </div>
+                    </a>
                 {% endfor %}
             </div>
         </section>
