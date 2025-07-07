@@ -13,13 +13,14 @@ def catalogo(request):
 
     # Lista fija de categorías definidas en tus productos
     categorias = [
-        "Herramientas",
-        "Materiales de Construcción",
-        "Pinturas",
-        "Electricidad",
-        "Fontanería",
-        "Ferretería General"
-    ]
+    "Insumos Agrícolas",
+    "Productos Veterinarios",
+    "Herramientas Rurales",
+    "Equipos de Riego",
+    "Alimentos para Animales",
+    "Cercado Eléctrico"
+]
+
 
     if categoria_nombre in categorias:
         productos = Producto.objects.filter(categoria__iexact=categoria_nombre)

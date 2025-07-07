@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Mi Proyecto{% endblock %}</title>
+    <title>{% block title %}AGROPECUARIA{% endblock %} </title>
     <style>
         .container {
             max-width: 1200px;
@@ -263,7 +263,7 @@
     </style>
 <header>
         <nav class="container">
-            <div class="logo">Mi Tienda</div>
+            <div class="logo"><img style="width: 80px; height: auto;" src="../static/logo.jpg"></div>
             <ul class="nav-links">
             <li><a href="{% url 'home' %}">Inicio</a></li>
             <li><a href="{% url 'catalogo' %}">Catalogo</a></li>
@@ -298,7 +298,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; {{ year|default:2025 }} - Mi Tienda Online</p>
+            <p>&copy; {{ year|default:2025 }} - Agropecuaria Online</p>
         </div>
     </footer>
 

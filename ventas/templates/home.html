@@ -2,143 +2,136 @@
 
 {% block content %}
 
-
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        {% load static %}
-        <link rel="stylesheet" href="{% static 'home.css' %}">
-
-    <title>Ferretería El Martillo</title>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+    <title>Agropecuaria Ortiz</title>
 </head>
 <body>
-    <!-- Hero -->
-    <section id="inicio" class="hero">
-        <div class="container">
-            <h1>Ferretería El Martillo</h1>
-            <p>Todo para tu hogar y construcción. Más de 25 años de experiencia y calidad.</p>
-        </div>
-    </section>
 
-    <!-- About -->
-    <section id="nosotros" class="about">
-        <div class="container">
-            <h2 class="section-title">Sobre Nosotros</h2>
-            <p>Somos una ferretería familiar con más de 25 años sirviendo a nuestra comunidad. Ofrecemos productos de calidad, precios justos y el mejor servicio al cliente.</p>
-            <p>Desde materiales de construcción hasta herramientas especializadas, tenemos todo lo que necesitas para tus proyectos.</p>
-            
-            <div class="stats">
-                <div class="stat">
-                    <h3>25+</h3>
-                    <p>Años de experiencia</p>
-                </div>
-                <div class="stat">
-                    <h3>5000+</h3>
-                    <p>Productos disponibles</p>
-                </div>
-                <div class="stat">
-                    <h3>10000+</h3>
-                    <p>Clientes satisfechos</p>
-                </div>
+<!-- Hero -->
+<section id="inicio" class="hero">
+    <div class="container">
+        <h1>Agropecuaria Ortiz</h1>
+        <p>Productos agrícolas y veterinarios de calidad. Más de 20 años apoyando al campo venezolano.</p>
+    </div>
+</section>
+
+<!-- About -->
+<section id="nosotros" class="about">
+    <div class="container">
+        <h2 class="section-title">Sobre Nosotros</h2>
+        <p>Somos una agropecuaria dedicada a servir a productores, ganaderos y agricultores. Ofrecemos insumos de calidad, herramientas rurales y asesoría especializada para tu labor en el campo.</p>
+        <p>Semillas, fertilizantes, productos veterinarios, equipos de riego y cercas eléctricas — tenemos todo lo necesario para impulsar tu producción.</p>
+
+        <div class="stats">
+            <div class="stat">
+                <h3>20+</h3>
+                <p>Años de experiencia</p>
+            </div>
+            <div class="stat">
+                <h3>4000+</h3>
+                <p>Productos agropecuarios</p>
+            </div>
+            <div class="stat">
+                <h3>9500+</h3>
+                <p>Clientes del campo</p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Services -->
-    <section id="servicios" class="services">
-        <div class="container">
-            <h2 class="section-title">Nuestros Servicios</h2>
-            <div class="services-grid">
-                <div class="service">
-                    <div class="service-icon"></div>
-                    <h3>Entrega a Domicilio</h3>
-                    <p>Llevamos tus materiales hasta tu puerta</p>
-                </div>
-                <div class="service">
-                    <div class="service-icon"></div>
-                    <h3>Asesoría Técnica</h3>
-                    <p>Te ayudamos a elegir lo mejor para tu proyecto</p>
-                </div>
-                <div class="service">
-                    <div class="service-icon"></div>
-                    <h3>Corte de Materiales</h3>
-                    <p>Cortamos madera, metal y otros materiales</p>
-                </div>
-                <div class="service">
-                    <div class="service-icon"></div>
-                    <h3>Duplicado de Llaves</h3>
-                    <p>Servicio rápido y preciso</p>
-                </div>
+<!-- Services -->
+<section id="servicios" class="services">
+    <div class="container">
+        <h2 class="section-title">Nuestros Servicios</h2>
+        <div class="services-grid">
+            <div class="service">
+                <div class="service-icon"></div>
+                <h3>Entrega Rural</h3>
+                <p>Llevamos tus productos directamente hasta tu finca o parcela</p>
+            </div>
+            <div class="service">
+                <div class="service-icon"></div>
+                <h3>Asesoría Agrícola</h3>
+                <p>Te ayudamos a elegir los insumos ideales para tus cultivos y ganado</p>
+            </div>
+            <div class="service">
+                <div class="service-icon"></div>
+                <h3>Control Sanitario</h3>
+                <p>Productos para el control de plagas y enfermedades en animales y cultivos</p>
+            </div>
+            <div class="service">
+                <div class="service-icon"></div>
+                <h3>Equipos Personalizados</h3>
+                <p>Montamos kits de riego, cercado eléctrico y más según tus necesidades</p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Products -->
-    <section id="productos" class="products">
-        <div class="container">
-            <h2 class="section-title">Nuestros Productos</h2>
-            <div class="products-grid">
-                <div class="product">
-                    <h3>Construcción</h3>
-                    <p>Cemento, ladrillos, varillas, arena</p>
-                </div>
-                <div class="product">
-                    <h3>Herramientas</h3>
-                    <p>Manuales, eléctricas, medición</p>
-                </div>
-                <div class="product">
-                    <h3>Plomería</h3>
-                    <p>Grifería, sanitarios, tuberías</p>
-                </div>
-                <div class="product">
-                    <h3>Electricidad</h3>
-                    <p>Cables, interruptores, iluminación</p>
-                </div>
-                <div class="product">
-                    <h3>Pintura</h3>
-                    <p>Interiores, exteriores, brochas</p>
-                </div>
-                <div class="product">
-                    <h3>Hogar</h3>
-                    <p>Cerrajería, jardinería, limpieza</p>
-                </div>
+<!-- Products -->
+<section id="productos" class="products">
+    <div class="container">
+        <h2 class="section-title">Nuestros Productos</h2>
+        <div class="products-grid">
+            <div class="product">
+                <h3>Insumos Agrícolas</h3>
+                <p>Semillas, abonos, fertilizantes, sustratos</p>
+            </div>
+            <div class="product">
+                <h3>Productos Veterinarios</h3>
+                <p>Vitaminas, antiparasitarios, suplementos</p>
+            </div>
+            <div class="product">
+                <h3>Herramientas Rurales</h3>
+                <p>Machetes, palas, bombas de mochila</p>
+            </div>
+            <div class="product">
+                <h3>Equipos de Riego</h3>
+                <p>Tuberías, aspersores, temporizadores</p>
+            </div>
+            <div class="product">
+                <h3>Cercado Eléctrico</h3>
+                <p>Postes, cables, baterías, controladores</p>
+            </div>
+            <div class="product">
+                <h3>Alimentos para Animales</h3>
+                <p>Concentrados, sales minerales, bloques nutricionales</p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Contact -->
-    <section id="contacto" class="contact">
-        <div class="container">
-            <h2 class="section-title">Contáctanos</h2>
-            <div class="contact-grid">
-                <div class="contact-item">
-                    <h3>Ubicación</h3>
-                    <p>Av. Principal #123<br>Centro Comercial Las Torres</p>
-                </div>
-                <div class="contact-item">
-                    <h3>Teléfonos</h3>
-                    <p>(0212) 555-0123<br>WhatsApp: (0414) 555-0125</p>
-                </div>
-                <div class="contact-item">
-                    <h3>Horarios</h3>
-                    <p>Lun-Vie: 7:00 AM - 6:00 PM<br>Sáb: 7:00 AM - 4:00 PM</p>
-                </div>
-                <div class="contact-item">
-                    <h3>Email</h3>
-                    <p>info@ferreteriaelmartillo.com</p>
-                </div>
+<!-- Contact -->
+<section id="contacto" class="contact">
+    <div class="container">
+        <h2 class="section-title">Contáctanos</h2>
+        <div class="contact-grid">
+            <div class="contact-item">
+                <h3>Ubicación</h3>
+                <p>Av. Principal #123<br>Centro Comercial AgroSur</p>
+            </div>
+            <div class="contact-item">
+                <h3>Teléfonos</h3>
+                <p>(0271) 555-0123<br>WhatsApp: (0424) 555-0125</p>
+            </div>
+            <div class="contact-item">
+                <h3>Horarios</h3>
+                <p>Lun-Vie: 7:00 AM - 5:00 PM<br>Sáb: 8:00 AM - 2:00 PM</p>
+            </div>
+            <div class="contact-item">
+                <h3>Email</h3>
+                <p>info@agroortiz.com</p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 Ferretería El Martillo. Todos los derechos reservados.</p>
-        </div>
-    </footer>
 </body>
 </html>
 {% endblock %}
