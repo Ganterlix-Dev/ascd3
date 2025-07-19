@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'Usuarios.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unidades</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    
+    <div class="header-section">
+        <h1><i class="fas fa-box"></i>Gestión de Unidades</h1>
+        <p>Aquí puedes crear, modificar y eliminar los Unidades que desees de manera fácil y rápida</p>
+        <a href="/Crear_unidades" style="text-decoration: none;" class="btn-create"><i class="fas fa-plus"></i> Crear Unidades</a>
+    </div>
+
+    <div class="main-container">
+
+        <div class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">{{ unidades|length }}</div>
+                    <div class="stat-label">Total Unidades</div>
+                </div>
+                <div class="stat-card">
+                        <a href="/Editar_unidades" class="btn-edit">
+                            <div class="stat-number">
+                                <i style="color: white;" class="fas fa-edit"></i>
+                            </div>
+                        </a>
+                    <div class="stat-label">Modificar</div>
+                </div>
+                <div class="stat-card">
+                    <a href="/Eliminar_unidades" class="btn-delete">
+                    <div class="stat-number">
+                        <i style="color: white;" class="fas fa-trash"></i>
+                    </div>
+                    </a>
+                    <div class="stat-label">Eliminar</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">Lista de Unidades</div>
+        
+        <div class="table-card">
+            <div class="table-header">
+                <h3><i class="fas fa-list"></i> Unidades Registradas</h3><br>
+            </div>
+            
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Cantidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for unidades in unidades %}
+                    <tr>
+                        <td>{{ unidades.nombre }}</td>
+                        <td>{{ unidades.cantidad }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+
+{% endblock %}
