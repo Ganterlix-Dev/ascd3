@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'detalles.css' %}">
+    <title>Agropecuaria Ortiz</title>
+</head>
+<body>
+<div> 
+  <div class="product-container">
+    <a href="javascript:history.back()" class="back-link">
+      <span class="back-arrow">←</span>
+      Volver a catálogo
+    </a>
+    
+  <div class="product-card">
+    <div class="product-content">
+      
+      <div class="product-image">
+        {% if producto.imagen %}
+        <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+        {% else %}
+        <span style="color: #9ca3af; font-size: 14px;">Sin imagen</span>
+        {% endif %}
+      </div>
+      
+      <div class="product-info">
+        <h1 class="product-title">{{ producto.nombre }}</h1>
+
+        <div class="availability-badge {% if producto.disponible %}available{% else %}unavailable{% endif %}">
+        <div class="availability-dot {% if producto.disponible %}available{% else %}unavailable{% endif %}"></div>
+        <span>
+          {% if producto.disponible %}
+            Disponible
+          {% else %}
+            No Disponible
+          {% endif %}
+        </span>
+      </div>
+
+
+        <div class="product-price">${{ producto.precio }}</div>
+
+        <div class="product-details">
+          <div class="product-meta">
+            {% if producto.categoria %}
+              <div class="meta-item"><div class="meta-label">Categoría</div><div class="meta-value">{{ producto.categoria }}</div></div>
+              {% endif %}
+            {% if producto.marca %}
+            <div class="meta-item"><div class="meta-label">Marca</div><div class="meta-value">{{ producto.marca }}</div></div>
+            {% endif %}
+            {% if unidad %}
+              <div class="meta-item">
+                <div class="meta-label">Unidad</div>
+                <div class="meta-value">
+                  {{ unidad.cantidad }} - {{ unidad.nombre }} - {{ unidad.tiempo }}
+                </div>
+              </div>
+            {% endif %}
+          </div>
+
+          {% if producto.descripcion %}
+            <div class="product-description">
+              <strong>Descripción:</strong><br>
+              {{ producto.descripcion|linebreaks }}
+            </div>
+            {% endif %}
+          </div>
+          
+        <form method="post">
+          {% csrf_token %}
+          <button type="submit" class="add-to-cart-btn" {% if not producto.disponible %}disabled{% endif %}>
+            Agregar al Carrito
+          </button>
+        </form>
+
+        {% if producto.disponible %}
+        <button class="buy-now-link">Comprar Ahora</button>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+
+</body>
+</html>
+{% endblock %}
+

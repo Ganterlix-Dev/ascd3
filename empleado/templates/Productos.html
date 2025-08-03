@@ -78,10 +78,10 @@
                         </td>
                         <td>{{ producto.nombre }}</td>
                         <td>{{ producto.descripcion }}</td>
-                        <td>{{ producto.categoria }}</td>
+                        <td>{{ producto.categoria.nombre }}</td>
                         <td>{{ producto.marca }}</td>
                         <td>{{ producto.precio }}</td>
-                        <td>{{ producto.unidad_medida }}</td>
+                        <td>{{producto.unidad_medida.cantidad}}-{{ producto.unidad_medida.nombre }}-{{ producto.unidad_medida.tiempo }}</td>
                         <td>{{ producto.disponible }}</td>
                     </tr>
                     {% endfor %}

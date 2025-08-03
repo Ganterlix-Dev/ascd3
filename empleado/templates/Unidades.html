@@ -1,77 +1,354 @@
 {% extends "base.html" %}
 
+{% block title %}CRUD de Unidades{% endblock %}
+
 {% block content %}
+
 <!DOCTYPE html>
-{% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="{% static 'Usuarios.css' %}">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unidades</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<html lang="es">
+    <head>
+    {% load static %}
+        <link rel="stylesheet" href="{% static 'Usuarios.css' %}">
+        <meta charset="UTF-8">
+        <title>Unidades</title>
 </head>
+<style>
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px 0;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 500;
+            color: #495057;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::before {
+            content: "☰";
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background-color: #545b62;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            color: #495057;
+            font-weight: 600;
+            padding: 15px;
+            text-align: left;
+            border-bottom: 2px solid #dee2e6;
+            font-size: 14px;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #dee2e6;
+            font-size: 14px;
+        }
+
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .link-edit {
+            color: #ffc107;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 13px;
+        }
+
+        .link-edit:hover {
+            text-decoration: underline;
+        }
+
+        .link-delete {
+            color: #dc3545;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 13px;
+        }
+
+        .link-delete:hover {
+            text-decoration: underline;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #6c757d;
+            font-style: italic;
+            padding: 40px;
+        }
+
+        .form-container {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .form-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 2px;
+            font-weight: 500;
+            color: #495057;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .alert-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .alert-message {
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+</style>
 <body>
-    
-    <div class="header-section">
-        <h1><i class="fas fa-box"></i>Gestión de Unidades</h1>
-        <p>Aquí puedes crear, modificar y eliminar los Unidades que desees de manera fácil y rápida</p>
-        <a href="/Crear_unidades" style="text-decoration: none;" class="btn-create"><i class="fas fa-plus"></i> Crear Unidades</a>
-    </div>
-
-    <div class="main-container">
-
-        <div class="stats-section">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number">{{ unidades|length }}</div>
-                    <div class="stat-label">Total Unidades</div>
-                </div>
-                <div class="stat-card">
-                        <a href="/Editar_unidades" class="btn-edit">
-                            <div class="stat-number">
-                                <i style="color: white;" class="fas fa-edit"></i>
-                            </div>
-                        </a>
-                    <div class="stat-label">Modificar</div>
-                </div>
-                <div class="stat-card">
-                    <a href="/Eliminar_unidades" class="btn-delete">
-                    <div class="stat-number">
-                        <i style="color: white;" class="fas fa-trash"></i>
-                    </div>
-                    </a>
-                    <div class="stat-label">Eliminar</div>
-                </div>
-            </div>
+    <div class="container">
+        <h1 class="header">CRUD de Unidades</h1>
+        
+        <div class="section-header">
+            <h2 class="section-title">Unidades Registradas</h2>
+            <a href="?action=create" class="btn-primary">+ Nueva Unidad</a>
         </div>
 
-        <div class="section-title">Lista de Unidades</div>
-        
-        <div class="table-card">
-            <div class="table-header">
-                <h3><i class="fas fa-list"></i> Unidades Registradas</h3><br>
-            </div>
-            
-            <table class="user-table">
+        <div class="table-container">
+            <table>
                 <thead>
                     <tr>
-                        <th>Nombre</th>
+                        <th>ID</th>
                         <th>Cantidad</th>
+                        <th>Nombre</th>
+                        <th>tiempo</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for unidades in unidades %}
-                    <tr>
-                        <td>{{ unidades.nombre }}</td>
-                        <td>{{ unidades.cantidad }}</td>
-                    </tr>
+                    {% for unidad in unidades %}
+                        <tr>
+                            <td>{{ unidad.id }}</td>
+                            <td>{{ unidad.cantidad}}</td>
+                            <td>{{ unidad.nombre }}</td>
+                            <td>{{ unidad.tiempo}}</td>
+                            <td>
+                                <div class="actions"></div>
+                                    <a href="?action=edit&id={{ unidad.id }}" class="link-edit">Editar</a>
+                                    <a href="?action=delete&id={{ unidad.id }}" class="link-delete">Borrar</a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="3" class="empty-state">
+                                No hay unidades registradas.
+                            </td>
+                        </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
+
+        {% if form %}
+            <div class="form-container">
+                <h2 class="form-title">
+                    {% if form.instance.pk %}Editar{% else %}Crear{% endif %} Unidad
+                </h2>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
+                    <div class="form-group">
+                        {{ form.cantidad.label_tag }}
+                        {{ form.cantidad }}
+                        {{ form.nombre.label_tag }}
+                        {{ form.nombre }}
+                        {{ form.tiempo.label_tag }}
+                        {{ form.tiempo }}
+                        {{ form.nombre.errors }}
+                    </div>
+                    <div class="form-actions">
+                        <a href="{% url 'unidades_crud' %}" class="btn-secondary">Cancelar</a>
+                        <button type="submit" class="btn-success">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        {% endif %}
+
+        {% if unidad_a_eliminar %}
+            <div class="alert-danger">
+                <h2 class="alert-title">Confirmar Borrado</h2>
+                <p class="alert-message">¿Seguro que deseas borrar la unidad «{{ unidad_a_eliminar.nombre }}»?</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-actions"></div>
+                        <a href="{% url 'unidades_crud' %}" class="btn-secondary">Cancelar</a>
+                        <button type="submit" class="btn-danger">Sí, Borrar</button>
+                    </div>
+                </form>
+            </div>
+        {% endif %}
     </div>
 </body>
 </html>
-
 {% endblock %}

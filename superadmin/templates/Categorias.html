@@ -1,0 +1,346 @@
+{% extends "base.html" %}
+
+{% block title %}CRUD de Categorías{% endblock %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+  {% load static %}
+    <link rel="stylesheet" href="{% static 'Usuarios.css' %}">
+    <meta charset="UTF-8">
+    <title>Categorias</title>
+</head>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px 0;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 500;
+            color: #495057;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::before {
+            content: "☰";
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background-color: #545b62;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            color: #495057;
+            font-weight: 600;
+            padding: 15px;
+            text-align: left;
+            border-bottom: 2px solid #dee2e6;
+            font-size: 14px;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #dee2e6;
+            font-size: 14px;
+        }
+
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .link-edit {
+            color: #ffc107;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 13px;
+        }
+
+        .link-edit:hover {
+            text-decoration: underline;
+        }
+
+        .link-delete {
+            color: #dc3545;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 13px;
+        }
+
+        .link-delete:hover {
+            text-decoration: underline;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #6c757d;
+            font-style: italic;
+            padding: 40px;
+        }
+
+        .form-container {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .form-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #495057;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .alert-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .alert-message {
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+    </style>
+<body>
+  <div class="container">
+    <h1 class="header">CRUD de Categorías</h1>
+    
+    <div class="section-header">
+      <h2 class="section-title">Categorías Registradas</h2>
+      <a href="?action=create" class="btn-primary">+ Nueva Categoría</a>
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for cat in categorias %}
+            <tr>
+              <td>{{ cat.id }}</td>
+              <td>{{ cat.nombre }}</td>
+              <td>
+                <div class="actions"></div>
+                  <a href="?action=edit&id={{ cat.id }}" class="link-edit">Editar</a>
+                  <a href="?action=delete&id={{ cat.id }}" class="link-delete">Borrar</a>
+                </div>
+              </td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="3" class="empty-state">
+                No hay categorías registradas.
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    {% if form %}
+      <div class="form-container">
+        <h2 class="form-title">
+          {% if form.instance.pk %}Editar{% else %}Crear{% endif %} Categoría
+        </h2>
+        <form method="post">
+          {% csrf_token %}
+          {{ form.non_field_errors }}
+          <div class="form-group">
+            {{ form.nombre.label_tag }}
+            {{ form.nombre }}
+            {{ form.nombre.errors }}
+          </div>
+          <div class="form-actions">
+            <a href="{% url 'categorias_crud' %}" class="btn-secondary">Cancelar</a>
+            <button type="submit" class="btn-success">Guardar</button>
+          </div>
+        </form>
+      </div>
+    {% endif %}
+
+    {% if categoria_a_eliminar %}
+      <div class="alert-danger">
+        <h2 class="alert-title">Confirmar Borrado</h2>
+        <p class="alert-message">¿Seguro que deseas borrar la categoría «{{ categoria_a_eliminar.nombre }}»?</p>
+        <form method="post">
+          {% csrf_token %}
+          <div class="form-actions">
+            <a href="{% url 'categorias_crud' %}" class="btn-secondary">Cancelar</a>
+            <button type="submit" class="btn-danger">Sí, Borrar</button>
+          </div>
+        </form>
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>
+{% endblock %}

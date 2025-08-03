@@ -65,15 +65,12 @@
 
                     <div>
                         <label for="categoria" class="stat-label" style="display: block; margin-bottom: 8px; font-weight: 600; color: #495057;">Categoría:</label>
-                        <select id="categoria" name="categoria" required
-                                style="width: 100%; padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 14px; background: white;">
-                            <option value="" disabled selected>Selecciona una categoría</option>
-                            <option value="Herramientas">Herramientas</option>
-                            <option value="Materiales de Construcción">Materiales de Construcción</option>
-                            <option value="Pinturas">Pinturas</option>
-                            <option value="Electricidad">Electricidad</option>
-                            <option value="Fontanería">Fontanería</option>
-                            <option value="Ferretería General">Ferretería General</option>
+                        <select id="categoria" name="categoria" required 
+                            style="width: 100%; padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 14px; background: white;">
+                            <option value="" disabled selected>Selecciona una categoria</option>
+                            {% for categoria in categorias %}
+                                <option value="{{ categoria.id }}">{{ categoria.nombre }}</option>
+                            {% endfor %}
                         </select>
                     </div>
 
@@ -91,17 +88,15 @@
 
                     <div>
                         <label for="unidad_medida" class="stat-label" style="display: block; margin-bottom: 8px; font-weight: 600; color: #495057;">Unidad de medida:</label>
-                        <select id="unidad_medida" name="unidad_medida" required
-                                style="width: 100%; padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 14px; background: white;">
+                        <select id="unidad_medida" name="unidad_medida" required 
+                            style="width: 100%; padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 14px; background: white;">
                             <option value="" disabled selected>Selecciona una unidad</option>
-                            <option value="unidad">Unidad</option>
-                            <option value="caja">Caja</option>
-                            <option value="metro">Metro</option>
-                            <option value="litro">Litro</option>
-                            <option value="kilogramo">Kilogramo</option>
-                            <option value="paquete">Paquete</option>
+                            {% for unidad in unidades %}
+                                <option value="{{ unidad.id }}">{{ unidad.nombre }}-{{unidad.cantidad}}-{{unidad.tiempo}} </option>
+                            {% endfor %}
                         </select>
                     </div>
+
 
                     <div>
                         <label for="disponible" class="stat-label" style="display: block; margin-bottom: 8px; font-weight: 600; color: #495057;">Disponible:</label>

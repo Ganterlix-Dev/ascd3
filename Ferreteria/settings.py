@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'usuarios',
     'ventas',
     'empleado',
-    'superadmin'
+    'superadmin',
+    'carrito'
 ]
 
 
@@ -66,6 +67,7 @@ TEMPLATES = [
             BASE_DIR / 'ventas' / 'templates',
             BASE_DIR / 'empleado' / 'templates',
             BASE_DIR / 'superadmin' / 'templates',
+            BASE_DIR / 'carrito' / 'templates',
         ],
         'APP_DIRS': True,
         'OPTIONS': {

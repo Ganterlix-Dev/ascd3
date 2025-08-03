@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import Producto, Unidades
+from superadmin.models import Categorias
 from .forms import ProductoForm, UnidadesForm
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.decorators import login_required
@@ -8,34 +9,57 @@ from django.contrib.auth.decorators import login_required
 def ListarProducto(request):
     if request.user.rol == 'Empleado':
         producto = Producto.objects.all()
+        unidad = Unidades.objects.all()
+        categorias = Categorias.objects.all() 
+
         print(producto)  # Ahora es una lista de objetos
-        return render(request, 'Productos.html', {'producto': producto})  # Cambia el nombre en el contexto
+        return render(request, 'Productos.html', {'producto': producto, 'unidad': unidad, 'categorias': categorias })  # Cambia el nombre en el contexto
     else:
         return render(request, '403.html')
+
 
 
 @login_required
 def CrearProducto(request):
     if request.user.rol == 'Empleado':
+        unidades = Unidades.objects.all()
+        categorias = Categorias.objects.all()
+
+        if not unidades.exists():
+            mensaje_advertencia = "No hay unidades registradas. Por favor crea unidades antes de continuar."
+            return render(request, "crear_productos.html", {
+                "mensaje_advertencia": mensaje_advertencia
+            })
+        if not categorias.exists():
+            mensaje_advertencia = "No hay categorías registradas. Por favor crea categorías antes de continuar."
+            return render(request, "crear_productos.html", {
+                "mensaje_advertencia": mensaje_advertencia
+            })
+
         if request.method == "POST":
-            form = ProductoForm(request.POST, request.FILES) 
+            form = ProductoForm(request.POST, request.FILES)
             if form.is_valid():
                 producto = form.save(commit=False)
                 producto.save()
                 return redirect("/Listar_productos")
-            else:
-                print(form.errors)
         else:
             form = ProductoForm()
 
-        return render(request, "crear_productos.html", {"form": form})
-    else:
-        return render(request, '403.html')
+        return render(request, "crear_productos.html", {
+            "form": form,
+            "unidades": unidades, 
+            "categorias": categorias
+        })
+
+    return render(request, '403.html')
+
+
 
 @login_required
 def EditarProducto(request):
     if request.user.rol == 'Empleado':
         producto = Producto.objects.all()
+        categorias = Categorias.objects.all()
         producto_seleccionado = None
         form = None
 
@@ -51,7 +75,7 @@ def EditarProducto(request):
                 form.save()
                 return redirect('/Listar_productos')  # Recarga la página para mostrar cambios
 
-        return render(request, "modificar_productos.html", {"producto": producto, "form": form, "producto_seleccionado": producto_seleccionado})
+        return render(request, "modificar_productos.html", {"producto": producto, "form": form, "producto_seleccionado": producto_seleccionado,"categorias": categorias,})
     else:
         return render(request, '403.html')
 
@@ -71,68 +95,46 @@ def EliminarProducto(request):
 
 
 @login_required
-def ListarUnidad(request):
-    if request.user.rol == 'Empleado':
-        unidades = Unidades.objects.all()
-        return render(request, 'unidades.html', {'unidades': unidades})
-    return render(request, '403.html')
+def unidades_crud(request, action=None, id=None):
+    if request.user.rol != 'Empleado':
+        return render(request, '403.html')
 
+    # 1) Siempre necesitamos el listado
+    unidades = Unidades.objects.all()
 
-@login_required
-def CrearUnidad(request):
-    if request.user.rol == 'Empleado':
+    # 2) Inicializamos
+    form = None
+    unidad_a_eliminar = None
+
+    # 3) Detectamos acción via GET (o via param action/id)
+    action = action or request.GET.get('action')
+    id     = id     or request.GET.get('id')
+
+    # CREAR
+    if action == 'create':
+        form = UnidadesForm(request.POST or None)
+        if request.method == 'POST' and form.is_valid():
+            form.save()
+            return redirect('unidades_crud')
+
+    # EDITAR
+    elif action == 'edit' and id:
+        instancia = get_object_or_404(Unidades, id=id)
+        form = UnidadesForm(request.POST or None, instance=instancia)
+        if request.method == 'POST' and form.is_valid():
+            form.save()
+            return redirect('unidades_crud')
+
+    # ELIMINAR
+    elif action == 'delete' and id:
+        unidad_a_eliminar = get_object_or_404(Unidades, id=id)
         if request.method == 'POST':
-            form = UnidadesForm(request.POST)
-            if form.is_valid():
-                form.save()
-                return redirect('/Listar_unidades')
-            # si hay errores, los mostramos en consola
-            print(form.errors)
-        else:
-            form = UnidadesForm()
+            unidad_a_eliminar.delete()
+            return redirect('unidades_crud')
 
-        return render(request, 'crear_unidades.html', {'form': form})
-    return render(request, '403.html')
-
-
-@login_required
-def EditarUnidad(request):
-    if request.user.rol == 'Empleado':
-        unidades = Unidades.objects.all()
-        unidad_seleccionada = None
-        form = None
-
-        # Paso 1: selecciona qué unidad editar
-        if request.method == 'POST' and 'unidad_id' in request.POST and 'guardar_cambios' not in request.POST:
-            unidad_seleccionada = get_object_or_404(Unidades, id=request.POST['unidad_id'])
-            form = UnidadesForm(instance=unidad_seleccionada)
-
-        # Paso 2: guarda los cambios
-        if request.method == 'POST' and 'guardar_cambios' in request.POST:
-            unidad_seleccionada = get_object_or_404(Unidades, id=request.POST['unidad_id'])
-            form = UnidadesForm(request.POST, instance=unidad_seleccionada)
-            if form.is_valid():
-                form.save()
-                return redirect('/Listar_unidades')
-            print(form.errors)
-
-        return render(request, 'modificar_unidades.html', {
-            'unidades': unidades,
-            'form': form,
-            'unidad_seleccionada': unidad_seleccionada
-        })
-    return render(request, '403.html')
-
-
-@login_required
-def EliminarUnidad(request):
-    if request.user.rol == 'Empleado':
-        unidades = Unidades.objects.all()
-
-        if request.method == 'POST' and 'unidad_id' in request.POST:
-            unidad_seleccionada = get_object_or_404(Unidades, id=request.POST['unidad_id'])
-            unidad_seleccionada.delete()
-            return redirect('/Listar_unidades')
-
-        return render(request, 'eliminar_unidades.html', {'unidades': unidades})
-    return render(request, '403.html')
+    # 4) Renderizamos siempre el mismo template
+    return render(request, 'Unidades.html', {
+        'unidades':            unidades,
+        'form':                form,
+        'unidad_a_eliminar':   unidad_a_eliminar,
+    })

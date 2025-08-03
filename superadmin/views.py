@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from usuarios.models import Persona
-from .forms import RegistroForm
+from.models import Categorias
+from .forms import RegistroForm, CategoriasForm
 from django.contrib.auth.hashers import make_password
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
@@ -79,3 +80,48 @@ def EliminarUsuario(request):
         return render(request, "eliminar_usuarios.html", {"usuarios": usuarios})
     else:
         return render(request, '403.html')
+
+@login_required
+def categorias_crud(request, action=None, id=None):
+    if request.user.rol != 'Admin':
+        return render(request, '403.html')
+
+    # 1) Siempre necesitamos el listado
+    categorias = Categorias.objects.all()
+
+    # 2) Inicializamos
+    form = None
+    categoria_a_eliminar = None
+
+    # 3) Detectamos acción via GET (o via param action/id)
+    action = action or request.GET.get('action')
+    id     = id     or request.GET.get('id')
+
+    # CREAR
+    if action == 'create':
+        form = CategoriasForm(request.POST or None)
+        if request.method == 'POST' and form.is_valid():
+            form.save()
+            return redirect('categorias_crud')
+
+    # EDITAR
+    elif action == 'edit' and id:
+        instancia = get_object_or_404(Categorias, id=id)
+        form = CategoriasForm(request.POST or None, instance=instancia)
+        if request.method == 'POST' and form.is_valid():
+            form.save()
+            return redirect('categorias_crud')
+
+    # ELIMINAR
+    elif action == 'delete' and id:
+        categoria_a_eliminar = get_object_or_404(Categorias, id=id)
+        if request.method == 'POST':
+            categoria_a_eliminar.delete()
+            return redirect('categorias_crud')
+
+    # 4) Renderizamos siempre el mismo template
+    return render(request, 'Categorias.html', {
+        'categorias':            categorias,
+        'form':                  form,
+        'categoria_a_eliminar':  categoria_a_eliminar,
+    })

@@ -10,4 +10,4 @@ class ProductoForm(forms.ModelForm):
 class UnidadesForm(forms.ModelForm):
     class Meta:
         model = Unidades
-        fields = ['nombre', 'cantidad']
+        fields = ['nombre', 'cantidad','tiempo']

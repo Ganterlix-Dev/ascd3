@@ -10,13 +10,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
     <link rel="stylesheet" href="{% static 'catalogo.css' %}">
-    <title>Catálogo - Ferretería El Martillo</title>
+    <title>Catálogo - Agropecuaria Ortiz</title>
 </head>
 <body>
     <div class="header">
         <div class="header-content">
-            <h1>Ferretería El Martillo</h1>
-            <p>Todo para tu hogar y construcción. Más de 25 años de experiencia y calidad.</p>
+            <h1>Toma tu Tiempo con Ortiz</h1>
         </div>
     </div>
 
@@ -39,7 +38,7 @@
 
             <div class="products-grid">
                 {% for producto in productos %}
-                    <div class="product-card">
+                    <a href="/detalles/{{ producto.id }}" style="text-decoration: none;" class="product-card">
                         <div class="product-image">
                             <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
                         </div>
@@ -57,7 +56,7 @@
                                 </div>
                             {% endif %}
                         </div>
-                    </div>
+                    </a>
                 {% endfor %}
             </div>
         </section>

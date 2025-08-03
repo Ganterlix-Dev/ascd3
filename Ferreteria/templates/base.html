@@ -3,279 +3,288 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Mi Proyecto{% endblock %}</title>
+    <title>{% block title %}AGROPECUARIA{% endblock %} </title>
     <style>
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+            max-width: 1200px !important;
+            margin: 0 auto !important;
+            padding: 0 20px !important;
         }
 
         /* Header */
         header {
-            background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
+            background: white !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
+            position: fixed !important;
+            width: 100% !important;
+            top: 0 !important;
+            z-index: 1000 !important;
         }
 
         nav {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            padding: 1rem 0;
-            gap: 3rem;
+            display: flex !important;
+            justify-content: flex-start !important;
+            align-items: center !important;
+            padding: 1rem 0 !important;
+            gap: 3rem !important;
         }
 
         .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #a7d477;
-            margin-right: auto;
+            font-size: 24px !important;
+            font-weight: bold !important;
+            color: #a7d477 !important;
+            margin-right: auto !important;
         }
 
         .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-            align-items: center;
+            display: flex !important;
+            list-style: none !important;
+            gap: 2rem !important;
+            align-items: center !important;
         }
 
         .nav-links a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            transition: color 0.3s;
+            text-decoration: none !important;
+            color: #333 !important;
+            font-weight: 500 !important;
+            transition: color 0.3s !important;
         }
 
         .nav-links a:hover {
-            color: #a7d477;
+            color: #a7d477 !important;
         }
 
         .auth-dropdown {
-            position: relative;
+            position: relative !important;
         }
 
         .auth-select {
-            padding: 8px 20px;
-            background: linear-gradient( #a7d477, #fcb454);
-            color: white;
-            border: none;
-            border-radius: 20px;
-            font-weight: 600;
-            font-family: inherit;
-            background-position: right 10px center;
-            background-size: 16px;
-            padding-right: 40px;
+            padding: 8px 20px !important;
+            background: linear-gradient( #a7d477, #fcb454) !important;
+            color: white !important;
+            border: none !important;
+            border-radius: 20px !important;
+            font-weight: 600 !important;
+            font-family: inherit !important;
+            background-position: right 10px center !important;
+            background-size: 16px !important;
+            padding-right: 40px !important;
         }
         
         .auth-select option {
-            color: rgb(0, 0, 0);
-            padding: 10px;
+            color: rgb(0, 0, 0) !important;
+            padding: 10px !important;
         }
         .auth-select option:hover, 
         .auth-select option:focus {
-            background: linear-gradient(#a7d477, #fcb454);
-            color: white;
+            background: linear-gradient(#a7d477, #fcb454) !important;
+            color: white !important;
         }
 
         /* Main content */
         main {
-            margin-top: 80px; /* Para compensar el header fijo */
-            min-height: calc(100vh - 160px); /* Para que el footer quede abajo */
+            margin-top: 80px !important; /* Para compensar el header fijo */
+            min-height: calc(100vh - 160px) !important; /* Para que el footer quede abajo */
         }
 
         /* Hero */
         .hero {
-            background: linear-gradient(135deg, #a7d477, #ffcf50);
-            color: white;
-            padding: 60px 0;
-            text-align: center;
+            background: linear-gradient(135deg, #a7d477, #ffcf50) !important;
+            color: white !important;
+            padding: 60px 0 !important;
+            text-align: center !important;
         }
 
         .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+            font-size: 2.5rem !important;
+            margin-bottom: 1rem !important;
         }
 
         .hero p {
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
+            font-size: 1.1rem !important;
+            margin-bottom: 2rem !important;
         }
 
         /* Sections */
         section {
-            padding: 60px 0;
+            padding: 60px 0 !important;
         }
 
         .section-title {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            color: #333;
+            text-align: center !important;
+            font-size: 2rem !important;
+            margin-bottom: 2rem !important;
+            color: #333 !important;
         }
 
         /* About */
         .about {
-            background: white;
-            text-align: center;
+            background: white !important;
+            text-align: center !important;
         }
 
         .about p {
-            font-size: 1.1rem;
-            max-width: 800px;
-            margin: 0 auto 2rem;
+            font-size: 1.1rem !important;
+            max-width: 800px !important;
+            margin: 0 auto 2rem !important;
         }
 
         .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+            gap: 2rem !important;
+            margin-top: 3rem !important;
         }
 
         .stat {
-            text-align: center;
-            padding: 1.5rem;
-            background: #faf7ed;
-            border-radius: 10px;
-            border: 2px solid #ffcf50;
+            text-align: center !important;
+            padding: 1.5rem !important;
+            background: #faf7ed !important;
+            border-radius: 10px !important;
+            border: 2px solid #ffcf50 !important;
         }
 
         .stat h3 {
-            font-size: 1.8rem;
-            color: #fcb454;
-            margin-bottom: 0.5rem;
+            font-size: 1.8rem !important;
+            color: #fcb454 !important;
+            margin-bottom: 0.5rem !important;
         }
 
         /* Services */
         .services {
-            background: #faf7ed;
+            background: #faf7ed !important;
         }
 
         .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
+            gap: 2rem !important;
         }
 
         .service {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            text-align: center;
-            border: 2px solid #a7d477;
+            background: white !important;
+            padding: 2rem !important;
+            border-radius: 10px !important;
+            text-align: center !important;
+            border: 2px solid #a7d477 !important;
         }
 
         .service-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+            font-size: 2.5rem !important;
+            margin-bottom: 1rem !important;
         }
 
         /* Products */
         .products {
-            background: white;
+            background: white !important;
         }
 
         .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+            gap: 1.5rem !important;
         }
 
         .product {
-            background: #faf7ed;
-            padding: 1.5rem;
-            border-radius: 10px;
-            text-align: center;
-            border: 2px solid #fcb454;
+            background: #faf7ed !important;
+            padding: 1.5rem !important;
+            border-radius: 10px !important;
+            text-align: center !important;
+            border: 2px solid #fcb454 !important;
         }
 
         .product h3 {
-            color: #fcb454;
-            margin-bottom: 1rem;
+            color: #fcb454 !important;
+            margin-bottom: 1rem !important;
         }
 
         /* Contact */
         .contact {
-            background: linear-gradient(135deg, #ffcf50, #fcb454);
-            color: white;
-            text-align: center;
+            background: linear-gradient(135deg, #ffcf50, #fcb454) !important;
+            color: white !important;
+            text-align: center !important;
         }
 
         .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
+            gap: 2rem !important;
+            margin-top: 2rem !important;
         }
 
         .contact-item {
-            background: rgba(255,255,255,0.1);
-            padding: 1.5rem;
-            border-radius: 10px;
+            background: rgba(255,255,255,0.1) !important;
+            padding: 1.5rem !important;
+            border-radius: 10px !important;
         }
 
         .contact-item h3 {
-            margin-bottom: 1rem;
+            margin-bottom: 1rem !important;
         }
 
         /* Footer */
         footer {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 2rem 0;
+            background: #333 !important;
+            color: white !important;
+            text-align: center !important;
+            padding: 2rem 0 !important;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
             .nav-links li:not(.auth-dropdown) {
-                display: none;
+                display: none !important;
             }
 
             .nav-links {
-                gap: 1rem;
+                gap: 1rem !important;
             }
 
             .hero h1 {
-                font-size: 2rem;
+                font-size: 2rem !important;
             }
 
             .auth-select {
-                font-size: 14px;
-                padding: 6px 30px 6px 15px;
+                font-size: 14px !important;
+                padding: 6px 30px 6px 15px !important;
             }
 
             nav {
-                padding: 0.5rem 0;
-                justify-content: flex-start;
-                gap: 2rem;
+                padding: 0.5rem 0 !important;
+                justify-content: flex-start !important;
+                gap: 2rem !important;
             }
 
             .logo {
-                font-size: 20px;
-                margin-right: auto;
+                font-size: 20px !important;
+                margin-right: auto !important;
             }
         }
     </style>
 <header>
         <nav class="container">
-            <div class="logo">Mi Tienda</div>
+            <div class="logo"><img style="width: 80px; height: auto;" src="../static/logo.jpg"></div>
             <ul class="nav-links">
             <li><a href="{% url 'home' %}">Inicio</a></li>
+            <li><a href="{% url 'catalogo' %}">Catalogo</a></li>
             {% if request.user.is_authenticated %}
                 {% if request.user.rol == 'Usuario' %}
-                <li><a href="{% url 'ver_carrito' %}">Carrito</a></li>
-                <li><a href="{% url 'productos_listar_productos' %}">Productos</a></li>
+                    <li><a href="{% url 'ver_carrito' %}">Carrito</a></li>
                 {% endif %}
+
+                {% if request.user.rol == 'Empleado' %}
+                <li><a href="{% url 'Listar_productos' %}">Productos</a></li>
+                <li><a href="{% url 'unidades_crud' %}">Unidades</a></li>
+                {% elif request.user.rol == 'Admin' %}
+                <li><a href="{% url 'Listar_usuarios' %}">Usuarios</a></li>
+                <li><a href="{% url 'categorias_crud' %}">Categorias</a></li>
+                {% endif %}
+
                 <li class="auth-dropdown">
-                <select class="auth-select" onchange="if(this.value) window.location.href=this.value">
-                    <option value="">Cuenta</option>
-                    <option value="{% url 'logout' %}" onclick="localStorage.clear();">Cerrar Sesión</option>
-                </select>
+                    <select class="auth-select" onchange="if(this.value) window.location.href=this.value">
+                        <option value="">Cuenta</option>
+                        <option value="{% url 'logout' %}" onclick="localStorage.clear();">Cerrar Sesión</option>
+                    </select>
                 </li>
             {% else %}
                 <li class="auth-dropdown">
@@ -298,7 +307,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; {{ year|default:2025 }} - Mi Tienda Online</p>
+            <p>&copy; {{ year|default:2025 }} - Agropecuaria Online</p>
         </div>
     </footer>
 
