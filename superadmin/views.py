@@ -1,10 +1,19 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from usuarios.models import Persona
+from empleado.models import Producto
 from.models import Categorias
+
 from .forms import RegistroForm, CategoriasForm
+
 from django.contrib.auth.hashers import make_password
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from django.template.loader import get_template
+
+from weasyprint import HTML
+
+
 
 @login_required
 def ListarUsuarios(request):
@@ -125,3 +134,21 @@ def categorias_crud(request, action=None, id=None):
         'form':                  form,
         'categoria_a_eliminar':  categoria_a_eliminar,
     })
+
+def export_usuarios_pdf(request):
+    usuarios = Persona.objects.all().order_by('apellido', 'nombre')
+    template = get_template('pdf_users.html')
+    html_content = template.render({'usuarios': usuarios})
+    pdf = HTML(string=html_content, base_url=request.build_absolute_uri()).write_pdf()
+    response = HttpResponse(pdf, content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="usuarios.pdf"'
+    return response
+
+def export_productos_pdf(request):
+    productos = Producto.objects.select_related('categoria', 'unidad_medida').all().order_by('nombre')
+    template = get_template('pdf_productos.html')
+    html_content = template.render({'productos': productos})
+    pdf = HTML(string=html_content, base_url=request.build_absolute_uri()).write_pdf()
+    response = HttpResponse(pdf, content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="productos.pdf"'
+    return response

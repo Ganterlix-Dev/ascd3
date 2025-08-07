@@ -9,8 +9,8 @@ class Persona(AbstractBaseUser, PermissionsMixin):
         ('Empleado', 'Empleado'),
         ('Usuario', 'Usuario'),
     ]
-    nombre = models.CharField(max_length=100)
-    apellido = models.CharField(max_length=100)
+    nombre = models.TextField()
+    apellido = models.TextField()
     cedula = models.CharField(max_length=20, unique=True)
     correo = models.EmailField(unique=True)
     telefono = models.CharField(max_length=20,)

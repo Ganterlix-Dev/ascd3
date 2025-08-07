@@ -277,7 +277,14 @@
                 <li><a href="{% url 'unidades_crud' %}">Unidades</a></li>
                 {% elif request.user.rol == 'Admin' %}
                 <li><a href="{% url 'Listar_usuarios' %}">Usuarios</a></li>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Cargar y restaurar</button>
+                </form>
                 <li><a href="{% url 'categorias_crud' %}">Categorias</a></li>
+                <li><a href="{% url 'pdf_usuarios' %}" class="btn">Descargar Usuarios (PDF)</a></li>
+                <li><a href="{% url 'pdf_productos' %}" class="btn">Descargar Productos (PDF)</a></li>
                 {% endif %}
 
                 <li class="auth-dropdown">

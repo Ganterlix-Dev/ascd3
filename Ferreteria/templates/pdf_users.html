@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Reporte de Usuarios</title>
+</head>
+<style>
+    /* Reset y configuración base */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 1.5cm;
+  color: #2c3e50;
+  line-height: 1.4;
+  background-color: #ffffff;
+}
+
+/* Encabezado principal */
+h1 {
+  text-align: center;
+  margin-bottom: 1.5cm;
+  color: #1a365d;
+  font-size: 2.2em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 3px solid #3182ce;
+  padding-bottom: 0.5cm;
+  position: relative;
+}
+
+h1::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, #3182ce, #63b3ed);
+}
+
+/* Contenedor de tabla */
+.table-container {
+  margin-bottom: 1.5cm;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Estilos de tabla */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1cm;
+  background-color: #ffffff;
+  font-size: 0.85em;
+}
+
+/* Encabezados de tabla */
+th {
+  background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+  color: #ffffff;
+  padding: 12px 10px;
+  text-align: left;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  letter-spacing: 0.5px;
+  border: none;
+  position: relative;
+}
+
+th::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #3182ce, #63b3ed);
+}
+
+/* Celdas de datos */
+td {
+  padding: 10px;
+  border-bottom: 1px solid #e2e8f0;
+  border-right: 1px solid #f7fafc;
+  vertical-align: top;
+  transition: background-color 0.2s ease;
+}
+
+/* Filas alternadas */
+tbody tr:nth-child(even) {
+  background-color: #f8fafc;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+/* Hover effect para filas */
+tbody tr:hover {
+  background-color: #edf2f7;
+}
+
+/* Estilos específicos por columna */
+td:first-child {
+  font-weight: 600;
+  color: #2d3748;
+}
+
+/* Columna de precio */
+td:nth-child(5) {
+  text-align: right;
+  font-weight: 600;
+  color: #38a169;
+}
+
+/* Columna de disponibilidad */
+td:last-child {
+  text-align: center;
+  font-weight: 600;
+}
+
+/* Indicadores de estado */
+td:last-child:contains("Sí") {
+  color: #38a169;
+}
+
+td:last-child:contains("No") {
+  color: #e53e3e;
+}
+
+/* Footer */
+footer {
+  position: fixed;
+  bottom: 1cm;
+  left: 1.5cm;
+  right: 1.5cm;
+  text-align: center;
+  font-size: 0.75em;
+  color: #718096;
+  border-top: 1px solid #e2e8f0;
+  padding-top: 0.5cm;
+}
+
+/* Configuración de página para PDF */
+@page {
+  size: A4;
+  margin: 1.5cm;
+  
+  @top-center {
+    content: "Reporte Generado - " date();
+    font-size: 0.7em;
+    color: #718096;
+  }
+  
+  @bottom-right {
+    content: "Página " counter(page) " de " counter(pages);
+    font-size: 0.75em;
+    color: #4a5568;
+    font-weight: 500;
+  }
+  
+  @bottom-left {
+    content: "Confidencial - Uso Interno";
+    font-size: 0.7em;
+    color: #a0aec0;
+  }
+}
+
+/* Estilos para impresión */
+@media print {
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  
+  table {
+    page-break-inside: avoid;
+  }
+  
+  tr {
+    page-break-inside: avoid;
+  }
+  
+  th {
+    page-break-after: avoid;
+  }
+}
+
+/* Responsive para diferentes tamaños */
+@media (max-width: 21cm) {
+  body {
+    margin: 1cm;
+  }
+  
+  h1 {
+    font-size: 1.8em;
+  }
+  
+  table {
+    font-size: 0.8em;
+  }
+  
+  th, td {
+    padding: 8px 6px;
+  }
+}
+
+/* Estilos adicionales para mejorar legibilidad */
+.highlight {
+  background-color: #fef5e7;
+  border-left: 4px solid #f6ad55;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.font-bold {
+  font-weight: 600;
+}
+
+/* Mejoras para campos específicos */
+.currency {
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+}
+
+.status-active {
+  color: #38a169;
+  font-weight: 600;
+}
+
+.status-inactive {
+  color: #e53e3e;
+  font-weight: 600;
+}
+
+/* Separadores visuales */
+.section-divider {
+  height: 2px;
+  background: linear-gradient(90deg, #3182ce, #63b3ed);
+  margin: 1cm 0;
+  border: none;
+}
+
+/* Información adicional */
+.report-info {
+  background-color: #f7fafc;
+  padding: 0.5cm;
+  border-left: 4px solid #3182ce;
+  margin-bottom: 1cm;
+  font-size: 0.85em;
+  color: #4a5568;
+}
+</style>
+<body>
+  <h1>Usuarios Registrados</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Cédula</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Correo</th>
+        <th>Teléfono</th>
+        <th>Rol</th>
+        <th>Último Login</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for u in usuarios %}
+      <tr>
+        <td>{{ u.cedula }}</td>
+        <td>{{ u.nombre }}</td>
+        <td>{{ u.apellido }}</td>
+        <td>{{ u.correo }}</td>
+        <td>{{ u.telefono }}</td>
+        <td>{{ u.get_rol_display }}</td>
+        <td>{{ u.last_login|date:"Y-m-d H:i" }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <footer></footer>
+</body>
+</html>

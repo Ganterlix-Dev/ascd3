@@ -20,17 +20,18 @@ from django.conf import settings
 from django.conf.urls.static import static
 from ventas.views import home, error_404, catalogo, detalle_producto
 from usuarios import views as usuarios_views
-from superadmin.views import ListarUsuarios,EditarUsuario,EliminarUsuario,Crearusuario, categorias_crud
+from superadmin.views import ListarUsuarios,EditarUsuario,EliminarUsuario,Crearusuario, categorias_crud, export_usuarios_pdf, export_productos_pdf
 from empleado import views as empleado_views
 from carrito.views import cart_detail, add_to_cart, update_cart_item, remove_from_cart
 from django.conf.urls import handler404
 
 handler404 = 'ventas.views.error_404'
 
-
 urlpatterns = [
     path('', home, name='home'),
     
+    path('download/', usuarios_views.descargar_backup, name='backup_download'),
+    path('restore/', usuarios_views.restaurar_backup, name='backup_restore'),
 
     path('logout/', usuarios_views.cerrar_sesion, name='logout'),
     path('recuperar/', usuarios_views.recuperar, name='recuperar'),
@@ -49,8 +50,10 @@ urlpatterns = [
     
     path('unidades/', empleado_views.unidades_crud, name='unidades_crud'),
 
-
     path('categorias/', categorias_crud, name='categorias_crud'),
+
+    path('pdf/usuarios/', export_usuarios_pdf, name='pdf_usuarios'),
+    path('pdf/productos/', export_productos_pdf, name='pdf_productos'),
 
     path('admin/', admin.site.urls, name='admin'),
 
