@@ -42,7 +42,10 @@ INSTALLED_APPS = [
     'ventas',
     'empleado',
     'superadmin',
-    'carrito'
+    'carrito',
+    'backups',
+    "dbbackup", 
+    "dbbackup.storage",
 ]
 
 
@@ -68,6 +71,7 @@ TEMPLATES = [
             BASE_DIR / 'empleado' / 'templates',
             BASE_DIR / 'superadmin' / 'templates',
             BASE_DIR / 'carrito' / 'templates',
+            BASE_DIR / 'backups' / 'templates',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -118,7 +122,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTHENTICATION_BACKENDS = ['usuarios.auth_backends.EmailAuthBackend']
 
-AUTH_USER_MODEL = 'usuarios.Persona'
+AUTH_USER_MODEL = 'usuarios.Personas'
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
@@ -146,6 +150,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 ALLOWED_HOSTS = ['*']
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
+DBBACKUP_STORAGE_OPTIONS = {'location': '/backups/'}
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

@@ -23,6 +23,7 @@ from usuarios import views as usuarios_views
 from superadmin.views import ListarUsuarios,EditarUsuario,EliminarUsuario,Crearusuario, categorias_crud, export_usuarios_pdf, export_productos_pdf
 from empleado import views as empleado_views
 from carrito.views import cart_detail, add_to_cart, update_cart_item, remove_from_cart
+from backups import views as backup_views
 from django.conf.urls import handler404
 
 handler404 = 'ventas.views.error_404'
@@ -30,8 +31,8 @@ handler404 = 'ventas.views.error_404'
 urlpatterns = [
     path('', home, name='home'),
     
-    path('download/', usuarios_views.descargar_backup, name='backup_download'),
-    path('restore/', usuarios_views.restaurar_backup, name='backup_restore'),
+    path('download/', backup_views.descargar_backup, name='backup_download'),
+    path('restore/', backup_views.restaurar_backup, name='backup_restore'),
 
     path('logout/', usuarios_views.cerrar_sesion, name='logout'),
     path('recuperar/', usuarios_views.recuperar, name='recuperar'),

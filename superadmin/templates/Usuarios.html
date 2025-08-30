@@ -12,6 +12,23 @@
     <title>Usuarios</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+<style>
+    .backup-form {
+        background: #ffffff;
+        padding: 10px;
+    }
+    .backup-button {
+        background: #81818114;
+        color: #000000;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: none;
+        font-weight: normal;
+        border: none;
+        border-radius: 5px;
+    }
+</style>
 <body>
     <!-- Header Section -->
     <div class="header-section">
@@ -38,6 +55,23 @@
                     <div class="stat-label">Modificar</div>
                 </div>
                 <div class="stat-card">
+                <h6  class="stat-label">Restaurar Base de Datos</h1>
+                <form
+                    class="backup-form"
+                    method="post"
+                    action="{% url 'backup_restore' %}"
+                    enctype="multipart/form-data"
+                >
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button class="backup-button" type="submit" >Cargar y restaurar</button>
+                    <br>
+                    <a class="backup-button" href="{% url 'backup_download' %}">
+                        Descargar
+                    </a>
+                </form>
+                </div>
+                <div class="stat-card">
                     <a href="/Eliminar_usuarios" class="btn-delete">
                     <div class="stat-number">
                         <i style="color: white;" class="fas fa-trash"></i>
@@ -62,7 +96,7 @@
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th>Cédula</th>
-                        <th>Correo</th>
+                        <th>email</th>
                         <th>Teléfono</th>
                         <th>Rol</th>
                     </tr>
@@ -73,7 +107,7 @@
                         <td>{{ usuario.nombre }}</td>
                         <td>{{ usuario.apellido }}</td>
                         <td>{{ usuario.cedula }}</td>
-                        <td>{{ usuario.correo }}</td>
+                        <td>{{ usuario.email }}</td>
                         <td>{{ usuario.telefono }}</td>
                         <td>{{ usuario.rol }}</td>
                     </tr>

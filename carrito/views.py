@@ -3,16 +3,16 @@ from carrito.models import Carrito, CarritoItem
 from carrito.forms import AddToCartForm, UpdateCartItemForm
 from empleado.models import Producto
 from django.contrib.auth.decorators import login_required
-from usuarios.models import Persona
+from usuarios.models import Personas
 
 
-def _get_or_create_carrito(persona):
-    carrito, _ = Carrito.objects.get_or_create(usuario=persona)
+def _get_or_create_carrito(Personas):
+    carrito, _ = Carrito.objects.get_or_create(usuario=Personas)
     return carrito
 
 def add_to_cart(request, producto_id):
-    persona = request.user.persona
-    carrito = _get_or_create_carrito(persona)
+    Personas = request.user.Personas
+    carrito = _get_or_create_carrito(Personas)
     producto = get_object_or_404(Producto, id=producto_id)
 
     form = AddToCartForm(request.POST or None)
@@ -29,8 +29,8 @@ def add_to_cart(request, producto_id):
     return redirect('cart_detail')
 
 def update_cart_item(request, item_id):
-    persona = request.user.persona
-    carrito = _get_or_create_carrito(persona)
+    Personas = request.user.Personas
+    carrito = _get_or_create_carrito(Personas)
     item = get_object_or_404(CarritoItem, id=item_id, carrito=carrito)
     
     form = UpdateCartItemForm(request.POST or None)
@@ -44,15 +44,15 @@ def update_cart_item(request, item_id):
     return redirect('cart_detail')
 
 def remove_from_cart(request, item_id):
-    persona = request.user.persona
-    carrito = _get_or_create_carrito(persona)
+    Personas = request.user.Personas
+    carrito = _get_or_create_carrito(Personas)
     item = get_object_or_404(CarritoItem, id=item_id, carrito=carrito)
     item.delete()
     return redirect('cart_detail')
 
 def cart_detail(request):
-    persona = request.user.persona
-    carrito = _get_or_create_carrito(persona)
+    Personas = request.user.Personas
+    carrito = _get_or_create_carrito(Personas)
     items = carrito.items.select_related('producto')
     total = sum(item.producto.precio * item.cantidad for item in items)
     

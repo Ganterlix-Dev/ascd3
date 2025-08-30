@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recuperar Contraseña</title>
-    <meta name="description" content="Recupera tu contraseña ingresando tu correo electrónico">
+    <meta name="description" content="Recupera tu contraseña ingresando tu email electrónico">
     <style>
         * {
             margin: 0;
@@ -227,13 +227,13 @@
                 <span class="icon">🔐</span>
                 <h1 class="title">Recuperar Contraseña</h1>
                 <p class="subtitle">
-                    Ingresa tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.
+                    Ingresa tu email electrónico y te enviaremos un enlace para restablecer tu contraseña.
                 </p>
             </div>
             
             <form id="recovery-form">
                 <div class="form-group">
-                    <label for="email" class="form-label">Correo Electrónico</label>
+                    <label for="email" class="form-label">email Electrónico</label>
                     <input 
                         type="email" 
                         id="email" 
@@ -244,7 +244,7 @@
                         autocomplete="email"
                     >
                     <div class="error-message" id="email-error">
-                        Por favor, ingresa un correo electrónico válido.
+                        Por favor, ingresa un email electrónico válido.
                     </div>
                 </div>
                 
@@ -262,13 +262,13 @@
         <!-- Mensaje de éxito -->
         <div id="success-container" class="success-message">
             <div class="success-icon">✅</div>
-            <h2 class="success-title">¡Correo Enviado!</h2>
+            <h2 class="success-title">¡email Enviado!</h2>
             <p class="success-text">
                 Hemos enviado un enlace de recuperación a <span class="email-highlight" id="user-email"></span>. 
                 Revisa tu bandeja de entrada y sigue las instrucciones para restablecer tu contraseña.
             </p>
             <p class="success-text" style="font-size: 0.9rem; margin-top: 1rem;">
-                Si no ves el correo, revisa tu carpeta de spam.
+                Si no ves el email, revisa tu carpeta de spam.
             </p>
             <a href="/" class="btn-back">
                 <span>←</span>

@@ -1,9 +1,9 @@
 from django.db import models
-from usuarios.models import Persona
+from usuarios.models import Personas
 from empleado.models import Producto
 
 class Carrito(models.Model):
-    usuario = models.OneToOneField(Persona, on_delete=models.CASCADE)
+    usuario = models.OneToOneField(Personas, on_delete=models.CASCADE)
     
     def __str__(self):
         return f'Carrito de {self.usuario.nombre}'

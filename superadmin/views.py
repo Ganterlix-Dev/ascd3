@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from usuarios.models import Persona
+from usuarios.models import Personas
 from empleado.models import Producto
 from.models import Categorias
 
@@ -18,7 +18,7 @@ from weasyprint import HTML
 @login_required
 def ListarUsuarios(request):
     if request.user.rol == 'Admin':
-        usuarios = Persona.objects.all()
+        usuarios = Personas.objects.all()
         return render(request, 'Usuarios.html', {'usuarios': usuarios})
     else:
         return render(request, '403.html')
@@ -53,16 +53,16 @@ def Crearusuario(request):
 @login_required
 def EditarUsuario(request):
     if request.user.rol == 'Admin':
-        usuarios = Persona.objects.all()
+        usuarios = Personas.objects.all()
         usuario_seleccionado = None
         form = None
 
         if request.method == "POST" and "usuario_id" in request.POST and "guardar_cambios" not in request.POST:
-            usuario_seleccionado = get_object_or_404(Persona, id=request.POST["usuario_id"])
+            usuario_seleccionado = get_object_or_404(Personas, id=request.POST["usuario_id"])
             form = RegistroForm(instance=usuario_seleccionado)
 
         if request.method == "POST" and "guardar_cambios" in request.POST:
-            usuario_seleccionado = get_object_or_404(Persona, id=request.POST["usuario_id"])
+            usuario_seleccionado = get_object_or_404(Personas, id=request.POST["usuario_id"])
             form = RegistroForm(request.POST, instance=usuario_seleccionado)
             if form.is_valid():
                 user = form.save(commit=False)
@@ -79,10 +79,10 @@ def EditarUsuario(request):
 @login_required
 def EliminarUsuario(request):
     if request.user.rol == 'Admin':
-        usuarios = Persona.objects.all()
+        usuarios = Personas.objects.all()
 
         if request.method == "POST" and "usuario_id" in request.POST:
-            usuario_seleccionado = get_object_or_404(Persona, id=request.POST["usuario_id"])
+            usuario_seleccionado = get_object_or_404(Personas, id=request.POST["usuario_id"])
             usuario_seleccionado.delete()
             return redirect("/Listar_usuarios")  # Recarga la página para ver la lista actualizada
 
@@ -136,7 +136,7 @@ def categorias_crud(request, action=None, id=None):
     })
 
 def export_usuarios_pdf(request):
-    usuarios = Persona.objects.all().order_by('apellido', 'nombre')
+    usuarios = Personas.objects.all().order_by('apellido', 'nombre')
     template = get_template('pdf_users.html')
     html_content = template.render({'usuarios': usuarios})
     pdf = HTML(string=html_content, base_url=request.build_absolute_uri()).write_pdf()
