@@ -17,15 +17,20 @@
         background: #ffffff;
         padding: 10px;
     }
-    .backup-button {
-        background: #81818114;
-        color: #000000;
+    .backup-button-rest, 
+    .backup-button-des {
+        padding: 1px;
+        margin: 1px;
+        border-bottom: 1px solid #000000 !important;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        color: #6c757d;
+        background: none;
         cursor: pointer;
         font-size: 14px;
-        font-weight: 500;
         text-decoration: none;
         font-weight: normal;
-        border: none;
         border-radius: 5px;
     }
 </style>
@@ -64,9 +69,9 @@
                 >
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <button class="backup-button" type="submit" >Cargar y restaurar</button>
+                    <button class="backup-button-rest" type="submit" >Cargar y restaurar</button>
                     <br>
-                    <a class="backup-button" href="{% url 'backup_download' %}">
+                    <a class="backup-button-des" href="{% url 'backup_download' %}">
                         Descargar
                     </a>
                 </form>

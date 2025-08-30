@@ -47,7 +47,6 @@ def restaurar_backup(request):
         finally:
             if tmp_path and os.path.exists(tmp_path):
                 os.remove(tmp_path)
-
-        return redirect('admin:index')
+        return render(request, "restore.html", {"form": form})
 
     return render(request, 'restore.html', {'form': form})
