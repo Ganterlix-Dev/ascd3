@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% load static %} 
+  <link rel="stylesheet" href="{% static 'detalles.css' %}">
+  <title>Tu carrito</title>
+</head>
+<body>
+  <div class="container_cart">
+
+    <h1 class="cart-title">Tu carrito</h1>
+    
+    {% if fila_data %}
+    <table class="cart-table-container">
+      <thead class="cart-table">
+        <tr>
+          <th>Producto</th>
+          <th>Precio</th>
+          <th>Cantidad</th>
+          <th>Subtotal</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody class="cart-table">
+        {% for entry in fila_data %}
+        <tr>
+          <td class="product-name">{{ entry.item.producto.nombre }}</td>
+          <td class="price">{{ entry.item.producto.precio|floatformat:2 }}</td>
+          <td>
+            <form class="quantity-form" action="{% url 'update_cart' entry.item.id %}" method="post">
+              {% csrf_token %}
+              <div>
+              <input
+                type="number"
+                name="{{ entry.form.cantidad.name }}"
+                id="{{ entry.form.cantidad.id_for_label }}"
+                value="{{ entry.form.cantidad.value|default_if_none:'' }}"
+                class="quantity-input"
+              />  
+              </div>
+              <button class="update-btn" type="submit">Actualizar</button>
+            </form>
+          </td>
+          <td class="subtotal">{{ entry.subtotal|floatformat:2 }}</td>
+          <td>
+            <a class="remove-btn" href="{% url 'remove_cart' entry.item.id %}">Eliminar</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <div class="cart-summary">
+      <p class="total">Total: {{ total|floatformat:2 }}</p>
+      <a href="#" class="checkout-btn">Proceder al pago</a>
+      {% else %}
+      <div class="empty-cart">
+        <p class="empty-message">Tu carrito está vacío.</p>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  </body>
+</html>
+{% endblock %}

@@ -22,7 +22,7 @@ from ventas.views import home, error_404, catalogo, detalle_producto
 from usuarios import views as usuarios_views
 from superadmin.views import ListarUsuarios,EditarUsuario,EliminarUsuario,Crearusuario, categorias_crud, export_usuarios_pdf, export_productos_pdf
 from empleado import views as empleado_views
-from carrito.views import cart_detail, add_to_cart, update_cart_item, remove_from_cart
+from carrito.views import add_to_cart, cart_detail, update_cart_item, remove_from_cart
 from backups import views as backup_views
 from django.conf.urls import handler404
 
@@ -60,19 +60,16 @@ urlpatterns = [
 
     path('catalogo/', catalogo, name='catalogo'),
     path('detalles/<int:id>/', detalle_producto, name='detalles'),
-    path('var', catalogo, name='ver_carrito'),  # Redirige a catalogo con la variable 'var'
-    
-    # Ver detalle del carrito
-    path('carrito/', cart_detail, name='cart_detail'),
 
-    # Añadir producto al carrito
-    path('add/<int:producto_id>/', add_to_cart, name='add_to_cart'),
+    path('Carrito/', cart_detail, name='ver_carrito'),  # Redirige a catalogo con la variable 
+    path('add/<int:producto_id>/', add_to_cart,    name='add_cart'),
 
-    # Actualizar cantidad de un item
-    path('update/<int:item_id>/', update_cart_item, name='update_cart_item'),
+    path('update/<int:item_id>/',  update_cart_item, name='update_cart'),
 
-    # Eliminar un item del carrito
-    path('remove/<int:item_id>/', remove_from_cart, name='remove_from_cart'),
-
+    path('remove/<int:item_id>/',  remove_from_cart, name='remove_cart'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
+

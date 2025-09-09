@@ -263,7 +263,10 @@
     </style>
 <header>
         <nav class="container">
-            <div class="logo"><img style="width: 80px; height: auto;" src="../static/logo.jpg"></div>
+            {% load static %}
+            <div class="logo">
+                <img style="width: 80px !important; height: auto !important;" src="{% static 'logo.jpg' %}" alt="Logo">
+            </div>
             <ul class="nav-links">
             <li><a href="{% url 'home' %}">Inicio</a></li>
             <li><a href="{% url 'catalogo' %}">Catalogo</a></li>

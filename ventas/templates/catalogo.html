@@ -26,9 +26,9 @@
                 <a href="{% url 'catalogo' %}" class="nav-item {% if not categoria_seleccionada %}active{% endif %}">Todos</a>
                 {% for cat in categorias %}
                     <a href="{% url 'catalogo' %}?categoria={{ cat }}"
-                       class="nav-item {% if cat == categoria_seleccionada %}active{% endif %}">
-                       {{ cat }}
-                    </a>
+                    class="nav-item {% if cat == categoria_seleccionada %}active{% endif %}">
+                    {{ cat }}
+                </a>
                 {% endfor %}
             </div>
         </nav>
