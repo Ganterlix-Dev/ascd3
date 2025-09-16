@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recibo de Pago</title>
+    {% load static %} 
+    <link rel="stylesheet" href="{% static 'recibo.css' %}">
+</head>
+<body>
+    <div class="container">
+        <!-- Botones de acción -->
+        <div class="action-buttons">
+            <button class="btn btn-outline" onclick="window.print()">
+                <span class="icon">🖨️</span>
+                Imprimir y descargar PDF
+                <span class="icon">📥</span>
+            </button>
+        </div>
+
+        <!-- Recibo principal -->
+        <div class="receipt-card">
+            <!-- Header -->
+            <div class="receipt-header">
+                <div class="company-info">
+                    <div class="company-icon">
+                        <span class="icon"><img style="width: 80px !important; height: auto !important;" src="{% static 'logo.jpg' %}" alt="Logo"></span>
+                    </div>
+                    <div class="company-details">
+                        <h1 class="company-name">Ferreagro Ortiz</h1>
+                        <!-- Agregado estilo en línea para forzar contraste -->
+                    </div>
+                </div>
+                <div class="receipt-info">
+                    <h2 class="receipt-title">RECIBO DE PAGO</h2>
+                    <!-- Agregado estilo en línea para forzar contraste -->
+                    <p class="receipt-period muted-text" style="color: #1f2937 !important;">Fecha: {{ fecha|date:"d/m/Y H:i" }}</p>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="receipt-content">
+                <!-- Información del empleado y detalles del pago -->
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="card-header">
+                            <span class="icon">👤</span>
+                            <h3>Información del Usuarios</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="info-row">
+                                <span class="label muted-text" style="color: #1f2937 !important;">Nombre:</span>
+                                <span class="value">{{ usuario.nombre }}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label muted-text" style="color: #1f2937 !important;">Apellido:</span>
+                                <span class="value">{{ usuario.apellido }}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label muted-text" style="color: #1f2937 !important;">Numero de identidad:</span>
+                                <span class="value">{{ usuario.cedula }}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label muted-text" style="color: #1f2937 !important;">Correo:</span>
+                                <span class="value">{{ usuario.email }}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label muted-text" style="color: #1f2937 !important;">Telefono:</span>
+                                <span class="value">{{ usuario.telefono }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="card-header">
+                            <span class="icon">📅</span>
+                            <h3>Detalles del Pago</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="info-row">
+                                <span class="label muted-text" style="color: #1f2937 !important;">Fecha de Pago:</span>
+                                <span class="value">{{ fecha|date:"d/m/Y" }}</span>
+                            </div>
+                            {% for p in productos %}
+                            <div class="info-row">
+                                <span class="label muted-text" style="color: #1f2937 !important;">Producto:</span>
+                                <p class="value primary-text">{{ p.nombre }}</p>          
+                            </div>
+                            <div class="info-row">
+                                <span class="label muted-text" style="color: #1f2937 !important;">subtotal:</span>
+                                <p class="value primary-text">{{ p.subtotal }}</p>
+                            </div>
+                            {% endfor %}
+                            <div class="info-row">
+                                <span class="label muted-text" style="color: #1f2937 !important;">Total:</span>
+                                <p class="value primary-text">{{ total }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Separador -->
+                <div class="separator"></div>
+
+                <!-- Total neto destacado -->
+                <div class="total-card">
+                    <div class="total-content">
+                        <div class="total-info">
+                            <h3 class="total-title">Total Neto a Pagar</h3>
+                            <!-- Agregado estilo en línea para forzar contraste -->
+                            <p class="muted-text" style="color: #1f2937 !important;">Gracias por su compra!</p>
+                        </div>
+                        <div class="total-amount">
+                            <div class="final-amount">${{total}}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Información de contacto -->
+                <div class="footer-info">
+                    <!-- Agregado estilo en línea para forzar contraste -->
+                    <p class="muted-text" style="color: #1f2937 !important;">+1 (555) 123-4567 | Ferreagro@gmail.com</p>
+                    <p class="muted-text" style="color: #1f2937 !important;">Este documento es generado automáticamente y no requiere firma.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

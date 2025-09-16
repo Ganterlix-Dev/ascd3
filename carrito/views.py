@@ -3,6 +3,8 @@ import logging
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect, render
+from django.utils import timezone
+from django.contrib.auth.decorators import login_required
 
 from carrito.forms import AddToCartForm, UpdateCartItemForm
 from carrito.models import Carrito, CarritoItem
@@ -107,3 +109,33 @@ def remove_from_cart(request, item_id):
     item.delete()
     logger.info(f"remove_from_cart: ítem {item_id} eliminado")
     return redirect('ver_carrito')
+
+
+## necesito al momento de pagar pasarle los datos a la fatura 
+
+
+@login_required
+@with_carrito
+def Factura(request):
+    items = request.carrito.items.select_related('producto')
+    total = 0
+    productos = []
+
+    for item in items:
+        subtotal = item.producto.precio * item.cantidad
+        total += subtotal
+        productos.append({
+            'nombre': item.producto.nombre,
+            'precio_unitario': item.producto.precio,
+            'cantidad': item.cantidad,
+            'subtotal': subtotal,
+        })
+
+    datos_factura = {
+        'usuario': request.user,
+        'productos': productos,
+        'total': total,
+        'fecha': timezone.now(),
+    }
+
+    return render(request, 'Factura.html', datos_factura)
