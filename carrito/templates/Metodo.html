@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'detalles.css' %}">
+<style>
+  .centered-form {
+    max-width: 500px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 32px 24px;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    text-align: center;
+  }
+  .centered-form .mb-3 {
+    text-align: left;
+  }
+  .centered-form label {
+    font-weight: 500;
+  }
+  .centered-form input, .centered-form select {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  .centered-form .btn {
+    min-width: 50px;
+    margin: 2px 1px;
+  }
+  .centered-text {
+    color: black;
+    font-size: medium;
+    text-align: center;
+  }
+</style>
+<div>
+  <h1 class="cart-title">Selecciona tu método de pago</h1>
+  <p class="centered-text">Registre el metodo de pago que va a usar</p>
+</div>
+<form class="centered-form" method="post">
+  <h3 class="cart-title">Pago Móvil</h3>
+  {% csrf_token %}
+  {{ pago_form.as_p }}
+  <button type="submit" class="centered-form btn" name="submit_movil">Enviar Pago Móvil</button>
+</form>
+
+<form class="centered-form" method="post">
+  <h3 class="cart-title" >Transferencia</h3>
+  {% csrf_token %}
+  {{ trans_form.as_p }}
+  <button type="submit" class="centered-form btn" name="submit_transferencia">Enviar Transferencia</button>
+</form>
+{% endblock %}

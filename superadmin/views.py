@@ -98,6 +98,12 @@ def categorias_crud(request, action=None, id=None):
     # 1) Siempre necesitamos el listado
     categorias = Categorias.objects.all()
 
+    # Validar si hay datos
+    if not categorias.exists():
+        mensaje_advertencia = "No hay unidades registradas."
+    else:
+        mensaje_advertencia = None
+
     # 2) Inicializamos
     form = None
     categoria_a_eliminar = None
@@ -133,6 +139,7 @@ def categorias_crud(request, action=None, id=None):
         'categorias':            categorias,
         'form':                  form,
         'categoria_a_eliminar':  categoria_a_eliminar,
+        'mensaje_advertencia': mensaje_advertencia,
     })
 
 def export_usuarios_pdf(request):

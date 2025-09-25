@@ -35,6 +35,11 @@
             </div>
             
             <button type="submit" class="btn-login">Iniciar Sesión</button>
+            {% if error %}
+            <div class="alert alert-danger">
+                {{ error }}
+            </div>
+            {% endif %}
         </form>
         
         <div class="divider">

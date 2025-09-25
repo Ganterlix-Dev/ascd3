@@ -37,7 +37,7 @@ def CrearProducto(request):
             })
 
         if request.method == "POST":
-            form = ProductoForm(request.POST, request.FILES)
+            form = ProductoForm(request.POST or None, request.FILES or None)
             if form.is_valid():
                 producto = form.save(commit=False)
                 producto.save()
@@ -63,19 +63,24 @@ def EditarProducto(request):
         producto_seleccionado = None
         form = None
 
-        if request.method == "POST" and "producto_id" in request.POST:
+        if request.method == "POST" and "producto_id" in request.POST and "guardar_cambios" not in request.POST:
             producto_seleccionado = get_object_or_404(Producto, id=request.POST["producto_id"])
             form = ProductoForm(instance=producto_seleccionado)
-            
 
-        if request.method == "POST" and "guardar_cambios" in request.POST:
+        elif request.method == "POST" and "guardar_cambios" in request.POST:
             producto_seleccionado = get_object_or_404(Producto, id=request.POST["producto_id"])
             form = ProductoForm(request.POST, request.FILES, instance=producto_seleccionado)
-            if form.is_valid():
+            if form.has_changed() and form.is_valid():
                 form.save()
-                return redirect('/Listar_productos')  # Recarga la página para mostrar cambios
+                return redirect('/Listar_productos')
+            # Si no hay cambios o el form no es válido, sigue mostrando el form con errores
 
-        return render(request, "modificar_productos.html", {"producto": producto, "form": form, "producto_seleccionado": producto_seleccionado,"categorias": categorias,})
+        return render(request, "modificar_productos.html", {
+            "producto": producto,
+            "form": form,
+            "producto_seleccionado": producto_seleccionado,
+            "categorias": categorias,
+        })
     else:
         return render(request, '403.html')
 
@@ -101,6 +106,12 @@ def unidades_crud(request, action=None, id=None):
 
     # 1) Siempre necesitamos el listado
     unidades = Unidades.objects.all()
+
+    # Validar si hay datos
+    if not unidades.exists():
+        mensaje_advertencia = "No hay unidades registradas."
+    else:
+        mensaje_advertencia = None
 
     # 2) Inicializamos
     form = None
@@ -137,4 +148,5 @@ def unidades_crud(request, action=None, id=None):
         'unidades':            unidades,
         'form':                form,
         'unidad_a_eliminar':   unidad_a_eliminar,
+        'mensaje_advertencia': mensaje_advertencia,
     })

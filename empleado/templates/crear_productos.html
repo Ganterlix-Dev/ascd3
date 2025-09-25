@@ -43,7 +43,11 @@
             <div style="padding: 30px;">
                 <form method="POST" style="display: grid; gap: 20px;" enctype="multipart/form-data">
                     {% csrf_token %}
-
+                    {% if form.mensaje_advertencia %}
+                        <div class="alert alert-danger">
+                            {{ form.mensaje_advertencia }}
+                        </div>
+                    {% endif %}
                     <div>
                         <label for="imagen" class="stat-label" style="display: block; margin-bottom: 8px; font-weight: 600; color: #495057;">Imagen del producto:</label>
                         <input type="file" id="imagen" name="imagen" accept="image/*" required 
@@ -76,7 +80,7 @@
 
                     <div>
                         <label for="marca" class="stat-label" style="display: block; margin-bottom: 8px; font-weight: 600; color: #495057;">Marca:</label>
-                        <input type="text" id="marca" name="marca" placeholder="Marca del producto"
+                        <input type="text" id="marca" name="marca" required placeholder="Marca del producto"
                                style="width: 100%; padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 14px;">
                     </div>
 

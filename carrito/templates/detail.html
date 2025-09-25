@@ -56,7 +56,7 @@
     </table>
     <div class="cart-summary">
       <p class="total">Total: {{ total|floatformat:2 }}</p>
-      <a href="{% url 'Factura' %}" class="checkout-btn">Proceder al pago</a>
+      <a href="{% url 'registrar_metodo_pago' %}" class="checkout-btn">Proceder al pago</a>
       {% else %}
       <div class="empty-cart">
         <p class="empty-message">Tu carrito está vacío.</p>

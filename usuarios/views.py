@@ -8,12 +8,6 @@ from .models import Personas
 
 
 def Iniciar(request):
-    # if request.method == 'POST':
-    #     # Muestra el QueryDict completo en consola
-    #     print(request.POST)
-    #     # O conviértelo a dict para verlo más claro
-    #     print(request.POST.dict())
-    #     print("Campos en Persona:", [f.name for f in Personas._meta.get_fields()])
     print("Personas:", Personas.objects.all())
     if not Personas.objects.filter(email='admin@admin.com').exists():
         Personas.objects.create(
@@ -27,45 +21,56 @@ def Iniciar(request):
             rol='Admin',
             is_staff=True
         )
+    error = None
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
-        user = authenticate(request, email=email, password=password)
 
-        print(f"Usuario autenticado: {user}")
-
-
-        if user is not None:
-            login(request, user)  # Inicia sesión
-            request.session['usuario_id'] = user.id  # Almacena el ID del usuario en la sesión
-            request.session['rol'] = user.rol  # Guarda el rol del usuario
-
-            print(f"Usuario autenticado: {user.rol}")
-
-            if user.rol == 'Admin':
-                return redirect('/Listar_usuarios')
-            elif user.rol == 'Empleado':
-                return redirect('/Listar_productos')
-            elif user.rol == 'Usuario':
-                return redirect('/')
+        if not email or not password:
+            error = 'Por favor ingrese email y contraseña.'
         else:
-            return render(request, 'Iniciar.html', {'error': 'email o contraseña incorrectos.'})
+            user = authenticate(request, email=email, password=password)
+            print(f"Usuario autenticado: {user}")
 
-    return render(request, 'Iniciar.html')
+            if user is not None:
+                login(request, user)  # Inicia sesión
+                request.session['usuario_id'] = user.id  # Almacena el ID del usuario en la sesión
+                request.session['rol'] = user.rol  # Guarda el rol del usuario
+
+                print(f"Usuario autenticado: {user.rol}")
+
+                if user.rol == 'Admin':
+                    return redirect('/Listar_usuarios')
+                elif user.rol == 'Empleado':
+                    return redirect('/Listar_productos')
+                elif user.rol == 'Usuario':
+                    return redirect('/')
+            else:
+                error = 'Email o contraseña incorrectos.'
+
+    return render(request, 'Iniciar.html', {'error': error})
 
 def Registrar(request):
     if request.method == 'POST':
         form = RegistroForm(request.POST)
         email = request.POST.get('email')
+        password = request.POST.get('password')
+        confirm_password = request.POST.get('confirmPassword')
+
         if Personas.objects.filter(email=email).exists():
             return render(request, 'Crear_usuario.html', {
                 'form': form,
                 'error': 'Ya existe un usuario registrado con ese email.'
             })
-        
+
+        if password != confirm_password:
+            return render(request, 'Crear_usuario.html', {
+                'form': form,
+                'error': 'Las contraseñas no coinciden.'
+            })
+
         if form.is_valid():
             user = form.save(commit=False)  # No guarda aún para poder autenticar
-            password = request.POST.get('password')  # Guarda la contraseña correctamente cifrada
             user.password = make_password(password)
             user.save()
             print(f"Usuario creado: {user.email} {user.password}")

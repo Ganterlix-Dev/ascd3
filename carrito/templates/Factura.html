@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recibo de Pago</title>
+    <title>Recibo</title>
     {% load static %} 
     <link rel="stylesheet" href="{% static 'recibo.css' %}">
 </head>
@@ -35,6 +35,7 @@
                     <h2 class="receipt-title">RECIBO DE PAGO</h2>
                     <!-- Agregado estilo en línea para forzar contraste -->
                     <p class="receipt-period muted-text" style="color: #1f2937 !important;">Fecha: {{ fecha|date:"d/m/Y H:i" }}</p>
+                    <a class="receipt-period muted-text" style="text-decoration: none;" href="{% url 'home' %}">Salir ❌</a>
                 </div>
             </div>
 
@@ -74,13 +75,9 @@
                     <div class="info-card">
                         <div class="card-header">
                             <span class="icon">📅</span>
-                            <h3>Detalles del Pago</h3>
+                            <h3>Detalles de los Productos</h3>
                         </div>
                         <div class="card-content">
-                            <div class="info-row">
-                                <span class="label muted-text" style="color: #1f2937 !important;">Fecha de Pago:</span>
-                                <span class="value">{{ fecha|date:"d/m/Y" }}</span>
-                            </div>
                             {% for p in productos %}
                             <div class="info-row">
                                 <span class="label muted-text" style="color: #1f2937 !important;">Producto:</span>
@@ -99,6 +96,53 @@
                     </div>
                 </div>
 
+                
+                    <div class="info-card">
+                        <div class="card-header">
+                            <span class="icon">🏦</span>
+                            <h3>Detalles del Pago</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="info-row">
+                                <span class="label muted-text" style="color: #1f2937 !important;">Fecha de Pago:</span>
+                                <span class="value">{{ fecha|date:"d/m/Y" }}</span>
+                            </div>
+                            {% if metodo_pago %}
+                            <div class="info-row">
+                                <span class="label muted-text" style="color: #1f2937 !important;">Método de Pago:</span>
+                                <span class="value">{{ metodo_pago.metodo }}</span>
+                            </div>
+                            {% endif %}
+                            {% if metodo_pago %}
+                            <div class="info-row">
+                                <span class="label muted-text" style="color: #1f2937 !important;">Banco:</span>
+                                <p class="value primary-text">{{ metodo_pago.banco }}</p>          
+                            </div>
+                            <div class="info-row">
+                                <span class="label muted-text" style="color: #1f2937 !important;">Cedula:</span>
+                                <p class="value primary-text">{{ metodo_pago.cedula }}</p>
+                            </div>
+                            <div class="info-row">
+                                <span class="label muted-text" style="color: #1f2937 !important;">Nombre:</span>
+                                <p class="value primary-text">{{ metodo_pago.nombre_titular }}</p>
+                            </div>
+                            <div class="info-row">
+                                <span class="label muted-text" style="color: #1f2937 !important;">Telefono:</span>
+                                <p class="value primary-text">{{ metodo_pago.telefono }}</p>
+                            </div>
+                            <div class="info-row">
+                                <span class="label muted-text" style="color: #1f2937 !important;">Tipo de cuenta:</span>
+                                <p class="value primary-text">{{ metodo_pago.tipo_cuenta }}</p>
+                            </div>
+                            {% endif %}
+                            <div class="info-row">
+                                <span class="label muted-text" style="color: #1f2937 !important;">Total:</span>
+                                <p class="value primary-text">{{ total }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Separador -->
                 <div class="separator"></div>
 
@@ -106,7 +150,7 @@
                 <div class="total-card">
                     <div class="total-content">
                         <div class="total-info">
-                            <h3 class="total-title">Total Neto a Pagar</h3>
+                            <h3 class="total-title">Total Pagado</h3>
                             <!-- Agregado estilo en línea para forzar contraste -->
                             <p class="muted-text" style="color: #1f2937 !important;">Gracias por su compra!</p>
                         </div>

@@ -4,7 +4,7 @@ from superadmin.models import Categorias
 class Unidades(models.Model):
     nombre = models.TextField()
     cantidad = models.IntegerField()
-    tiempo = models.TextField(max_length=20, blank=True, null=True) 
+    tiempo = models.TextField(max_length=20) 
 
     def __str__(self):
         return f"{self.nombre} - {self.cantidad} - {self.tiempo}"
@@ -13,7 +13,7 @@ class Producto(models.Model):
     nombre = models.TextField()
     descripcion = models.TextField()
     categoria = models.ForeignKey(Categorias, on_delete=models.CASCADE)
-    marca = models.CharField(max_length=50, blank=True, null=True)
+    marca = models.CharField(max_length=50)
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     unidad_medida = models.ForeignKey(Unidades, on_delete=models.CASCADE)
     disponible = models.BooleanField(default=True)

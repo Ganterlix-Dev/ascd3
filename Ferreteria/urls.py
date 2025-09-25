@@ -22,7 +22,7 @@ from ventas.views import home, error_404, catalogo, detalle_producto
 from usuarios import views as usuarios_views
 from superadmin.views import ListarUsuarios,EditarUsuario,EliminarUsuario,Crearusuario, categorias_crud, export_usuarios_pdf, export_productos_pdf
 from empleado import views as empleado_views
-from carrito.views import add_to_cart, cart_detail, update_cart_item, remove_from_cart, Factura
+from carrito.views import add_to_cart, cart_detail, update_cart_item, remove_from_cart, Factura, registrar_metodo_pago
 from backups import views as backup_views
 from django.conf.urls import handler404
 
@@ -67,6 +67,9 @@ urlpatterns = [
     path('update/<int:item_id>/',  update_cart_item, name='update_cart'),
 
     path('remove/<int:item_id>/',  remove_from_cart, name='remove_cart'),
+
+    path('metodo-pago/', registrar_metodo_pago, name='registrar_metodo_pago'),
+
 
     path('Factura/', Factura, name='Factura'),  
 
