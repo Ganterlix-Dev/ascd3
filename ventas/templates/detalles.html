@@ -77,10 +77,26 @@
           <div style="margin-top: -10px;padding: 10px;border: none;width: 100%;display: flex;justify-content: space-between;margin-bottom: 10px;">
             {{ add_to_cart_form.cantidad }} <p>cantidad a llevar</p>
           </div>
-          {% if producto.disponible %}
-            <button type="submit" class="add-to-cart-btn">Agregar al Carrito</button>
+          {% if user.is_authenticated and user.rol == "usuario" %}
+            {% if producto.disponible %}
+              <button type="submit" class="add-to-cart-btn">
+                Agregar al Carrito
+              </button>
+            {% else %}
+              <button type="button"
+                      class="add-to-cart-btn"
+                      style="pointer-events: none;"
+                      disabled>
+                No disponible
+              </button>
+            {% endif %}
           {% else %}
-            <button type="button" class="add-to-cart-btn" style="pointer-events: none;" disabled>No disponible</button>
+            <button type="button"
+                    class="add-to-cart-btn"
+                    style="pointer-events: none;"
+                    disabled>
+              Solo usuarios registrados pueden comprar
+            </button>
           {% endif %}
         </form>
 

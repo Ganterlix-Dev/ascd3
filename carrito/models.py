@@ -3,6 +3,12 @@ from django.conf import settings
 from django.utils import timezone
 from usuarios.models import Personas
 from empleado.models import Producto
+from django.core.validators import RegexValidator
+
+solo_digitos = RegexValidator(
+    regex=r'^\d+$',
+    message='Este campo solo acepta números'
+)
 
 class Carrito(models.Model):
     usuario = models.OneToOneField(Personas, on_delete=models.CASCADE)
@@ -37,14 +43,27 @@ class MetodoPago(models.Model):
     # Datos comunes
     banco = models.CharField(max_length=100, default='Banco Desconocido')
     nombre_titular = models.CharField(max_length=100, default='Nombre Desconocido')
-    cedula = models.CharField(max_length=12, default='00000000')
 
     # Para transferencia
-    numero_cuenta = models.CharField(max_length=30, default='Cuenta Desconocido')
     tipo_cuenta = models.CharField(max_length=20, null=True)  # Ej: Ahorro, Corriente
 
     # Para pago móvil
-    telefono = models.CharField(max_length=15, default='000-000-0000')
+    numero_cuenta = models.CharField(
+        max_length=30,
+        validators=[solo_digitos],
+        default='0000000000'
+    )
+    cedula = models.CharField(
+        max_length=12,
+        validators=[solo_digitos],
+        default='0000000000'
+    )
+    telefono = models.CharField(
+        max_length=15,
+        validators=[solo_digitos],
+        default='00000000000'
+    )
+
     creado_en = models.DateTimeField(default=timezone.now)
     class Meta:
         ordering = ['creado_en']       # ordena por fecha ascendente
