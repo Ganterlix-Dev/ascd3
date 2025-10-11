@@ -6,7 +6,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Seguridad y debug desde variables de entorno
 SECRET_KEY = os.environ.get("SECRET_KEY", "replace-me-locally-only")
-DEBUG = os.environ.get("DEBUG", "False").lower() in ("1", "true", "yes")
+DEBUG = True
 
 # Hosts
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
