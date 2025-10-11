@@ -77,7 +77,7 @@
           <div style="margin-top: -10px;padding: 10px;border: none;width: 100%;display: flex;justify-content: space-between;margin-bottom: 10px;">
             {{ add_to_cart_form.cantidad }} <p>cantidad a llevar</p>
           </div>
-          {% if user.is_authenticated and user.rol == "usuario" %}
+          {% if user.is_authenticated and user.rol == "Usuario" %}
             {% if producto.disponible %}
               <button type="submit" class="add-to-cart-btn">
                 Agregar al Carrito
